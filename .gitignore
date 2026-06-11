@@ -1,0 +1,10 @@
+node_modules/
+*.log
+.DS_Store
+*.pyc
+__pycache__/
+# Harness scratch written into a course workspace during runs
+.paideia/run/
+.paideia/tmp/
+# Local experiments
+/sandbox/

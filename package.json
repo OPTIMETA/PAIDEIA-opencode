@@ -1,0 +1,52 @@
+{
+  "name": "paideia-opencode",
+  "version": "0.1.0",
+  "description": "Exam-prep harness for math/physics courses, driving opencode. Ingests course PDFs through a vision pipeline, extracts HW-density-weighted solution patterns, drills via twins/blinds/chains/mocks, and grades hand-written answer scans. A standalone orchestration layer — not an editor plugin — that wraps opencode as its execution engine.",
+  "type": "module",
+  "bin": {
+    "paideia": "bin/paideia.mjs"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "assets/",
+    "README.md",
+    "README.ko.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18.17"
+  },
+  "scripts": {
+    "paideia": "node bin/paideia.mjs",
+    "check": "node --check bin/paideia.mjs && for f in $(find src -name '*.mjs'); do node --check \"$f\" || exit 1; done && echo 'syntax ok'",
+    "doctor": "node bin/paideia.mjs doctor"
+  },
+  "keywords": [
+    "exam-prep",
+    "math",
+    "physics",
+    "opencode",
+    "harness",
+    "ocr",
+    "ollama",
+    "qwen3-vl",
+    "tesseract",
+    "course",
+    "agent"
+  ],
+  "author": {
+    "name": "TaewoooPark",
+    "url": "https://github.com/TaewoooPark"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/OPTIMETA/PAIDEIA-opencode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OPTIMETA/PAIDEIA-opencode"
+  },
+  "bugs": {
+    "url": "https://github.com/OPTIMETA/PAIDEIA-opencode/issues"
+  },
+  "dependencies": {}
+}
