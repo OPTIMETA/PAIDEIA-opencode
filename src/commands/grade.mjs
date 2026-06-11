@@ -87,6 +87,7 @@ export async function run(args, ctx) {
     // agent-vision: rasterize for opencode to read.
     tmpDir = join(root, "answers", "converted", `.tmp-${stem}`);
     if (!ctx.dryRun) {
+      cleanup(tmpDir); // clear any scratch left by a prior interrupted run
       try {
         renderPdfPages(target, tmpDir, { dpi: 200, maxPx: 1800, prefix: "page-" });
       } catch (e) {
