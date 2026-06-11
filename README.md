@@ -163,7 +163,7 @@ Supporting: `paideia hwmap` surfaces HW-density exam-probability, `paideia statu
 
 - **Node ≥ 18.17** (runs the harness — plain ESM, zero runtime dependencies)
 - **[opencode](https://opencode.ai)** (the execution engine) — `npm i -g opencode-ai`, then `opencode auth login` once
-- **Python 3.9+** with `pdf2image` + `pillow` (PDF rendering & local OCR)
+- **Python 3.9+** with `pdf2image` + `pillow` (PDF rendering & local OCR); add `reportlab` for `cheatsheet --pdf`
 - A Unix-style shell (`bash` / `zsh`). On Windows use [WSL2](https://learn.microsoft.com/windows/wsl/install).
 - **macOS**: `brew install poppler tesseract tesseract-lang`
 - **Linux (Debian/Ubuntu)**: `apt-get install poppler-utils tesseract-ocr tesseract-ocr-kor`
