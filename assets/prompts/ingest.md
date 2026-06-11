@@ -68,7 +68,8 @@ present.
 ## Report
 
 Print a short report (in {{INTERFACE_LANG}}): how many files you transcribed,
-and a list of any files where you left `[?]` marks (with counts). The harness
-prints the full Converted/Skipped/Failed table and removes the `_pages/`
-scratch directories after you return — do not delete them yourself, and do not
-re-render anything.
+and a list of any files where you left `[?]` marks (with counts). **Do not print
+a Converted/Skipped/Failed table** — the harness prints the authoritative one
+(it alone knows the skipped/failed counts). The harness also removes the
+`_pages/` scratch directories after you return — do not delete them yourself,
+and do not re-render anything.
