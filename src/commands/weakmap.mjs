@@ -7,7 +7,10 @@ export async function run(args, ctx) {
   if (!course) return 1;
 
   const wm = latestWeakmap(course.root);
-  const hasErrors = /\bproblem_id\s*:/.test(readErrorsLog(course.root));
+  // Strip HTML comments so the schema example in the errors/log.md seed
+  // (`- problem_id: <id>`) isn't mistaken for a real graded entry.
+  const errLog = readErrorsLog(course.root).replace(/<!--[\s\S]*?-->/g, "");
+  const hasErrors = /\bproblem_id\s*:/.test(errLog);
   const body = [
     wm ? `Latest report: ${relative(course.root, wm)}` : "No prior weakmap report.",
     hasErrors ? "errors/log.md has entries to snapshot." : "errors/log.md is empty (no graded errors yet).",

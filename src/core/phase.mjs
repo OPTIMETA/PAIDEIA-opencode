@@ -16,6 +16,10 @@ import { readErrorsLog, latestWeakmap } from "./workspace.mjs";
 // Accept both the canonical `pattern:` and a legacy `pattern_missed_initial:`.
 const PATTERN_RX = /\b(?:pattern|pattern_missed_initial)\s*:\s*(P\d+)/g;
 
+// Strip HTML comments so the schema example inside the errors/log.md seed
+// (which literally contains `- problem_id: <id>`) doesn't read as a real entry.
+const stripComments = (t) => t.replace(/<!--[\s\S]*?-->/g, "");
+
 function quizProblemsExist(root) {
   const dir = join(root, "quizzes");
   if (!existsSync(dir)) return false;
@@ -37,7 +41,7 @@ export function detectPhase(root, days) {
   if (days === 0) return "cool";
   const cheat = join(root, "cheatsheet");
   if (existsSync(join(cheat, "final.pdf")) || existsSync(join(cheat, "final.md"))) return "cram";
-  const log = readErrorsLog(root);
+  const log = stripComments(readErrorsLog(root));
   if (mockWasGraded(log)) return "mock";
   if (!existsSync(join(root, "course-index", "patterns.md"))) return "setup";
   if (quizProblemsExist(root) && hasErrorEntries(log)) return "drill";
@@ -56,7 +60,7 @@ export function topMiss(root) {
     const m2 = /\bP(\d+)\b/.exec(text);
     if (m2) return `P${m2[1]}`;
   }
-  const log = readErrorsLog(root);
+  const log = stripComments(readErrorsLog(root));
   if (log) {
     const counts = new Map();
     let m;
