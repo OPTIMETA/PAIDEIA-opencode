@@ -36,15 +36,11 @@ _Generated <date>. For exam reference only._
 
 ## 3. Write `cheatsheet/final.md`.
 
-## 4. If `--pdf` is present
+That is the only file you produce. If the user passed `--pdf`, the **harness**
+converts `final.md` → `cheatsheet/final.pdf` deterministically after you return
+— do **not** attempt to generate the PDF yourself.
 
-Convert `cheatsheet/final.md` → `cheatsheet/final.pdf`:
-- Prefer `pypandoc.convert_file('cheatsheet/final.md', 'pdf',
-  outputfile='cheatsheet/final.pdf')` if available.
-- Else reportlab, 2-column, 9pt, minimal margins for density. Reminder: in
-  reportlab use `<sub>`/`<super>` XML tags, **not** Unicode sub/superscripts.
-
-## 5. Print (terminal, in {{INTERFACE_LANG}})
+## 4. Print (terminal, in {{INTERFACE_LANG}})
 
 The cheatsheet filename, a rough word count / page estimate, and the closing
 line: "Check what materials your exam allows. If none, scan this and commit it
