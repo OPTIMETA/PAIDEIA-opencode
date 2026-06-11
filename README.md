@@ -363,6 +363,14 @@ Global flags: `--model <provider/model>` (pass a model to opencode), `--dry-run`
 
 `--dry-run` shows the exact command and the composed spec without invoking the model.
 
+### Configuration
+
+- **Model** — `paideia <cmd> --model <provider/model>`, or set `PAIDEIA_MODEL`. Unset → opencode's configured default.
+- **Timeout** — each `opencode run` has a safety timeout (default **30 min**); raise it with `PAIDEIA_TIMEOUT=<seconds>` for very large courses, or to allow a slow local model.
+- **Permissions** — stages pass `--dangerously-skip-permissions` so they run unattended; set `PAIDEIA_ASK_PERMISSIONS=1` to keep opencode's approval prompts.
+- **Python** — `PAIDEIA_PYTHON` overrides the interpreter used for rendering and local OCR.
+- **Workspace config** — `init-course` writes an `opencode.json` with `instructions: ["AGENTS.md"]` (ambient course context) and `permission` set to allow, plus a course-scoped `.gitignore`.
+
 ### Ingest pipeline: vision for every PDF
 
 `paideia ingest` routes every PDF in `materials/**` through the same vision pipeline. Text extraction was tried first and proved unreliable: even pages that *look* like plain prose silently word-salad as soon as they mix equations, figures, multi-column layouts, or margin notes.
@@ -389,7 +397,7 @@ OCR noise in hand-written math makes strict algebraic grading useless — a sing
 2. **Variables** — did they identify the right substitution / basis / index / contour?
 3. **End-form** — does their final expression have the right shape (dimensions, asymptotics, structure)?
 
-Errors get logged as YAML to `errors/log.md` with a typed classification (`pattern-missed | wrong-variable | wrong-end-form | algebraic | sign | definition`). This log is the seed for `paideia weakmap` and the *only* input to `paideia cheatsheet`.
+Errors get logged as YAML to `errors/log.md` with a typed classification (`pattern-missed | wrong-variable | wrong-end-form | algebraic | sign | definition`). This log is the seed for `paideia weakmap` and the heart of the cheatsheet's *traps* section — `paideia cheatsheet` reads it alongside `patterns.md`, `coverage.md`, and `summary.md`.
 
 ### Patterns extracted from *your* solutions
 
@@ -426,7 +434,8 @@ PAIDEIA-opencode/
     │   └── blind.md  blind_check.md chain.md   derive.md   alt.md
     └── scripts/
         ├── render_pages.py         # PDF → PNG render + ≤1800px resize (pdf2image + Pillow)
-        └── vision_ocr.py           # opt-in: ollama qwen3-vl driver + tesseract, for --ocr=ollama|tesseract
+        ├── vision_ocr.py           # opt-in: ollama qwen3-vl driver + tesseract, for --ocr=ollama|tesseract
+        └── md_to_pdf.py            # cheatsheet --pdf: markdown → PDF (pandoc, else reportlab)
 ```
 
 ---
