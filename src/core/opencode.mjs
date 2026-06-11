@@ -84,7 +84,17 @@ export function runStage({ root, stage, spec, model, dryRun = false, askPerms = 
     return { code: 0, specPath, argv, dryRun: true, printable };
   }
 
-  const r = spawnSync("opencode", argv, { cwd: root, stdio: "inherit" });
+  // Generous safety timeout so a hung/runaway opencode never blocks forever.
+  // Override with PAIDEIA_TIMEOUT (seconds); default 30 min.
+  const timeoutMs = Math.max(60, Number(process.env.PAIDEIA_TIMEOUT) || 1800) * 1000;
+  const r = spawnSync("opencode", argv, { cwd: root, stdio: "inherit", timeout: timeoutMs });
+  if (r.error) {
+    const timedOut = r.error.code === "ETIMEDOUT" || r.signal === "SIGTERM";
+    process.stderr.write(timedOut
+      ? `\nopencode timed out after ${Math.round(timeoutMs / 1000)}s (raise PAIDEIA_TIMEOUT to allow longer runs).\n`
+      : `\nopencode failed to run: ${r.error.message}\n`);
+    return { code: 1, specPath, argv, error: r.error, timedOut };
+  }
   const code = typeof r.status === "number" ? r.status : 1;
   return { code, specPath, argv };
 }
