@@ -1,7 +1,7 @@
 // grade — resolve the answer + reference, run the OCR half the harness owns
 // (local engines, or rasterize for agent-vision), then drive opencode to
 // transcribe (if needed) and strategy-grade. Archives the PDF on success.
-import { existsSync, mkdirSync, renameSync } from "node:fs";
+import { mkdirSync, renameSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { join, basename, extname, isAbsolute, resolve as pathResolve } from "node:path";
 import { resolveCourse } from "../core/stage.mjs";
@@ -10,7 +10,8 @@ import {
 } from "../core/workspace.mjs";
 import { courseVars, buildSpec } from "../core/prompts.mjs";
 import { runStage, opencodeAvailable } from "../core/opencode.mjs";
-import { renderPdfPages, cleanup, pythonBin, describeSpawnFailure } from "../core/render.mjs";
+import { renderPdfPages, cleanup, pythonBin } from "../core/render.mjs";
+import { describeSpawnFailure, longRunTimeoutMs } from "../core/proc.mjs";
 import { parseArgs } from "../core/args.mjs";
 import { t } from "../core/i18n.mjs";
 
@@ -25,7 +26,9 @@ function isInside(dir, p) {
 function resolveTarget(root, positional) {
   if (positional) {
     const p = isAbsolute(positional) ? positional : pathResolve(root, positional);
-    return existsSync(p) ? p : null;
+    // Must be a *file*: a directory passes existsSync and then fails much later
+    // inside the rasterizer, with an error about the PDF library.
+    try { return statSync(p).isFile() ? p : null; } catch { return null; }
   }
   return latestAnswer(root);
 }
@@ -45,8 +48,11 @@ function referenceCandidates(root, stem) {
 function runVisionOcr(root, pdf, out, engine) {
   const py = pythonBin();
   if (!py) throw new Error("python3 not found — required for the ollama/tesseract OCR engines.");
+  // Bounded like every other long-running child: vision_ocr.py caps each page
+  // at 30 minutes but nothing capped the *document*, so a stalled local model
+  // on a 20-page scan could hold the terminal for a working day.
   const r = spawnSync(py, [assetPath("scripts", "vision_ocr.py"), `--engine=${engine}`, pdf, out],
-    { cwd: root, stdio: "inherit" });
+    { cwd: root, stdio: "inherit", timeout: longRunTimeoutMs() });
   // stdio is inherited, so r.stderr is null — describeSpawnFailure still turns
   // a spawn error or a kill signal into something better than "exited null".
   if (r.status !== 0) throw new Error(describeSpawnFailure(r, "vision_ocr.py"));

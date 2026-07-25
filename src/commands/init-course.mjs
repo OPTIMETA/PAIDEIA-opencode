@@ -128,6 +128,11 @@ __pycache__/
 
 const GITIGNORE_MARKER = "# --- paideia course workspace ---";
 
+// Bootstrap git calls are local and quick; the ceiling exists so a global
+// pre-commit hook that waits for input cannot wedge the whole command. Ten
+// minutes is far beyond `git add -A` on any realistic materials folder.
+const GIT_TIMEOUT_MS = 600_000;
+
 /**
  * Ensure the course ignore rules are present in `<root>/.gitignore`, exactly
  * once. Idempotent: keyed on a marker line, so re-running init-course (or
@@ -207,9 +212,9 @@ export async function run(args, _ctx) {
     // run scratch and the original answer scans.
     ensureGitignore(root);
     if (!existsSync(join(root, ".git"))) {
-      spawnSync("git", ["init", "-q"], { cwd: root });
-      spawnSync("git", ["add", "-A"], { cwd: root });
-      const c = spawnSync("git", ["commit", "-q", "-m", "paideia: initial setup"], { cwd: root, encoding: "utf8" });
+      spawnSync("git", ["init", "-q"], { cwd: root, timeout: GIT_TIMEOUT_MS });
+      spawnSync("git", ["add", "-A"], { cwd: root, timeout: GIT_TIMEOUT_MS });
+      const c = spawnSync("git", ["commit", "-q", "-m", "paideia: initial setup"], { cwd: root, encoding: "utf8", timeout: GIT_TIMEOUT_MS });
       if (c.status !== 0) {
         console.log("  (git: initial commit skipped — set user.name/user.email, then commit manually)");
       }

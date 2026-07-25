@@ -7,6 +7,7 @@
 import { spawnSync } from "node:child_process";
 import { join, relative } from "node:path";
 import { timestamps, writeFileAtomic, uniqueToken } from "./workspace.mjs";
+import { longRunTimeoutMs } from "./proc.mjs";
 
 // `opencode --version` is probed by both availability and version checks, and
 // on every stage run. Spawning a process is the expensive part of an otherwise
@@ -16,7 +17,7 @@ function probeVersion() {
   if (versionProbe !== undefined) return versionProbe;
   try {
     const r = spawnSync("opencode", ["--version"], { encoding: "utf8", timeout: 15000 });
-    const out = `${`${r.stdout || ""}${r.stderr || ""}`}`.trim();
+    const out = `${r.stdout || ""}${r.stderr || ""}`.trim();
     versionProbe = { ok: r.status === 0 || out.length > 0, out };
   } catch {
     versionProbe = { ok: false, out: "" };
@@ -96,7 +97,7 @@ export function runStage({ root, stage, spec, model, dryRun = false, askPerms = 
 
   // Generous safety timeout so a hung/runaway opencode never blocks forever.
   // Override with PAIDEIA_TIMEOUT (seconds); default 30 min.
-  const timeoutMs = Math.max(60, Number(process.env.PAIDEIA_TIMEOUT) || 1800) * 1000;
+  const timeoutMs = longRunTimeoutMs();
   const r = spawnSync("opencode", argv, { cwd: root, stdio: "inherit", timeout: timeoutMs });
   if (r.error) {
     const timedOut = r.error.code === "ETIMEDOUT" || r.signal === "SIGTERM";

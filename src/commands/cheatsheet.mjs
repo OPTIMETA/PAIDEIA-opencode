@@ -3,7 +3,8 @@ import { spawnSync } from "node:child_process";
 import { join } from "node:path";
 import { resolveCourse, runOpencodeStage } from "../core/stage.mjs";
 import { assetPath, relative } from "../core/workspace.mjs";
-import { pythonBin, describeSpawnFailure } from "../core/render.mjs";
+import { pythonBin } from "../core/render.mjs";
+import { describeSpawnFailure } from "../core/proc.mjs";
 import { parseArgs, argString } from "../core/args.mjs";
 
 export async function run(args, ctx) {

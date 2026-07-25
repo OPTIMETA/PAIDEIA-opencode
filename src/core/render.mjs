@@ -3,6 +3,7 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
 import { assetPath } from "./workspace.mjs";
+import { describeSpawnFailure } from "./proc.mjs";
 
 // Resolving python costs a process spawn per candidate; `ingest` asks once per
 // PDF. The interpreter cannot change mid-run, so probe at most once.
@@ -22,21 +23,6 @@ export function pythonBin() {
   return pythonProbe;
 }
 
-/**
- * Turn a spawnSync result into one readable line. spawnSync reports a failure
- * to *start* (ENOENT) and a timeout kill via `error`/`signal` with a null
- * status — so the naive `exit ${r.status}` renders the two most common
- * failures as the useless "exit null".
- */
-export function describeSpawnFailure(r, what) {
-  if (r.error) {
-    if (r.error.code === "ETIMEDOUT" || r.signal === "SIGTERM") return `${what} timed out`;
-    return `${what} could not start: ${r.error.message}`;
-  }
-  if (r.signal) return `${what} was killed by ${r.signal}`;
-  const stderr = `${r.stderr || ""}`.trim();
-  return stderr || `${what} failed (exit ${r.status})`;
-}
 
 /**
  * Render `pdf` to PNG pages in `outDir`. Returns { pages } on success.

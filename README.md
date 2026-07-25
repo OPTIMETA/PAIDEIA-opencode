@@ -366,7 +366,7 @@ Global flags: `--model <provider/model>` (pass a model to opencode), `--dry-run`
 ### Configuration
 
 - **Model** — `paideia <cmd> --model <provider/model>`, or set `PAIDEIA_MODEL`. Unset → opencode's configured default.
-- **Timeout** — each `opencode run` has a safety timeout (default **30 min**); raise it with `PAIDEIA_TIMEOUT=<seconds>` for very large courses, or to allow a slow local model.
+- **Timeout** — every long-running child (each `opencode run`, and local OCR via `vision_ocr.py`) has a safety timeout (default **30 min**); raise it with `PAIDEIA_TIMEOUT=<seconds>` for very large courses, or to allow a slow local model.
 - **Permissions** — stages pass `--dangerously-skip-permissions` so they run unattended; set `PAIDEIA_ASK_PERMISSIONS=1` to keep opencode's approval prompts.
 - **Python** — `PAIDEIA_PYTHON` overrides the interpreter used for rendering and local OCR.
 - **Colour** — `paideia status` tints the course name on a TTY; `NO_COLOR=1` (or `--plain`) suppresses every escape, for embedding the line in another prompt.
