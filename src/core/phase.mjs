@@ -14,7 +14,9 @@ import { join } from "node:path";
 import { readErrorsLog, latestWeakmap } from "./workspace.mjs";
 
 // Accept both the canonical `pattern:` and a legacy `pattern_missed_initial:`.
-const PATTERN_RX = /\b(?:pattern|pattern_missed_initial)\s*:\s*(P\d+)/g;
+// Built fresh per use: a shared /g regex carries `lastIndex` across calls, so
+// one forgotten reset silently makes the next scan start mid-text.
+const patternRx = () => /\b(?:pattern|pattern_missed_initial)\s*:\s*(P\d+)/g;
 
 // Strip HTML comments so the schema example inside the errors/log.md seed
 // (which literally contains `- problem_id: <id>`) doesn't read as a real entry.
@@ -22,8 +24,9 @@ const stripComments = (t) => t.replace(/<!--[\s\S]*?-->/g, "");
 
 function quizProblemsExist(root) {
   const dir = join(root, "quizzes");
-  if (!existsSync(dir)) return false;
-  return readdirSync(dir).some((f) => f.endsWith(".md") && !f.endsWith("_answers.md"));
+  let names;
+  try { names = readdirSync(dir); } catch { return false; }
+  return names.some((f) => f.endsWith(".md") && !f.endsWith("_answers.md"));
 }
 
 function hasErrorEntries(logText) {
@@ -53,9 +56,8 @@ export function topMiss(root) {
   const wm = latestWeakmap(root);
   if (wm) {
     let text = "";
-    try { text = readFileSync(wm, "utf8"); } catch { /* ignore */ }
-    const m = PATTERN_RX.exec(text);
-    PATTERN_RX.lastIndex = 0;
+    try { text = readFileSync(wm, "utf8"); } catch { /* unreadable — fall through to the log */ }
+    const m = patternRx().exec(text);
     if (m) return m[1];
     const m2 = /\bP(\d+)\b/.exec(text);
     if (m2) return `P${m2[1]}`;
@@ -63,11 +65,12 @@ export function topMiss(root) {
   const log = stripComments(readErrorsLog(root));
   if (log) {
     const counts = new Map();
+    const rx = patternRx();
     let m;
-    PATTERN_RX.lastIndex = 0;
-    while ((m = PATTERN_RX.exec(log))) counts.set(m[1], (counts.get(m[1]) || 0) + 1);
+    while ((m = rx.exec(log))) counts.set(m[1], (counts.get(m[1]) || 0) + 1);
     if (counts.size) {
-      return [...counts.entries()].sort((a, b) => b[1] - a[1])[0][0];
+      // Ties break on the pattern ID so the status line is stable run to run.
+      return [...counts.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))[0][0];
     }
   }
   return null;
