@@ -353,6 +353,7 @@ paideia weakmap                 # 상위 3개만. 새로운 건 배우지 말 �
 - **타임아웃** — 각 `opencode run`에 안전 타임아웃이 있습니다(기본 **30분**); 아주 큰 코스나 느린 로컬 모델은 `PAIDEIA_TIMEOUT=<초>`로 늘리세요.
 - **권한** — 스테이지는 무인 실행을 위해 `--dangerously-skip-permissions`로 돕니다; opencode 승인 프롬프트를 유지하려면 `PAIDEIA_ASK_PERMISSIONS=1`.
 - **파이썬** — `PAIDEIA_PYTHON`으로 렌더·로컬 OCR에 쓰는 인터프리터를 덮어씁니다.
+- **색상** — `paideia status`는 TTY에서 코스 이름에 색을 입힙니다; 다른 프롬프트에 끼워 쓰려면 `NO_COLOR=1`(또는 `--plain`)로 이스케이프를 모두 끕니다.
 - **워크스페이스 설정** — `init-course`가 `opencode.json`(`instructions: ["AGENTS.md"]` 상시 컨텍스트 + `permission` allow)과 코스 `.gitignore`를 작성합니다.
 
 ### 인제스트 파이프라인: 모든 PDF에 비전

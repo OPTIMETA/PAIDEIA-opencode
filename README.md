@@ -369,6 +369,7 @@ Global flags: `--model <provider/model>` (pass a model to opencode), `--dry-run`
 - **Timeout** — each `opencode run` has a safety timeout (default **30 min**); raise it with `PAIDEIA_TIMEOUT=<seconds>` for very large courses, or to allow a slow local model.
 - **Permissions** — stages pass `--dangerously-skip-permissions` so they run unattended; set `PAIDEIA_ASK_PERMISSIONS=1` to keep opencode's approval prompts.
 - **Python** — `PAIDEIA_PYTHON` overrides the interpreter used for rendering and local OCR.
+- **Colour** — `paideia status` tints the course name on a TTY; `NO_COLOR=1` (or `--plain`) suppresses every escape, for embedding the line in another prompt.
 - **Workspace config** — `init-course` writes an `opencode.json` with `instructions: ["AGENTS.md"]` (ambient course context) and `permission` set to allow, plus a course-scoped `.gitignore`.
 
 ### Ingest pipeline: vision for every PDF
