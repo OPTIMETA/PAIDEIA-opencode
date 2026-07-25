@@ -39,7 +39,7 @@ export function courseVars(root, meta, extra = {}) {
 
 /** Render one "## <title>\n\n<body>" context block. */
 function block(title, body) {
-  return `## ${title}\n\n${body.trim()}\n`;
+  return `## ${title}\n\n${String(body).trim()}\n`;
 }
 
 /**

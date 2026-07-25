@@ -278,3 +278,17 @@ test("parseArgs leaves a value flag boolean when no value follows", () => {
   assert.equal(parseArgs(["--strategy"], ["strategy"]).flags.strategy, true);
   assert.equal(parseArgs(["--strategy", "--force"], ["strategy"]).flags.strategy, true);
 });
+
+test("parseArgs flags carry no inherited names", () => {
+  // Commands test presence with `"strategy" in flags`; on a normal object that
+  // is also true for every Object.prototype member.
+  const { flags } = parseArgs(["--force"]);
+  assert.ok("force" in flags);
+  for (const inherited of ["toString", "constructor", "hasOwnProperty", "valueOf"]) {
+    assert.ok(!(inherited in flags), `${inherited} must not be visible as a flag`);
+  }
+  // `--__proto__=x` is an ordinary key, not a prototype assignment.
+  const proto = parseArgs(["--__proto__=polluted"]).flags;
+  assert.equal(proto["__proto__"], "polluted");
+  assert.equal({}.polluted, undefined);
+});

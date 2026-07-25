@@ -1,7 +1,11 @@
 // Minimal argv parser: `--key=value`, `--key value`, boolean `--flag`, rest
 // positional. `valueFlags` lists flags that consume the next token as a value.
 export function parseArgs(argv, valueFlags = []) {
-  const flags = {};
+  // Null-prototype: callers test presence with `"strategy" in flags`, and on a
+  // normal object that is also true for `toString`, `constructor` and every
+  // other inherited name. It also makes `--__proto__=x` an ordinary key rather
+  // than an assignment the language treats specially.
+  const flags = Object.create(null);
   const positionals = [];
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
