@@ -25,7 +25,7 @@ function probe(cmd, args = ["--version"]) {
  * cold macOS) for information a single script yields at once.
  */
 function missingPyModules(py, mods) {
-  const script = "import importlib.util,sys\n"
+  const script = "import importlib.util\n"
     + `mods=${JSON.stringify(mods)}\n`
     + "print('\\n'.join(m for m in mods if importlib.util.find_spec(m) is None))";
   try {

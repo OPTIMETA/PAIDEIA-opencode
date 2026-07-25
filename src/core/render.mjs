@@ -23,7 +23,6 @@ export function pythonBin() {
   return pythonProbe;
 }
 
-
 /**
  * Render `pdf` to PNG pages in `outDir`. Returns { pages } on success.
  * Throws with a readable message on failure (missing deps, bad PDF, ...).
