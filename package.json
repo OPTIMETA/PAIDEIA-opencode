@@ -20,6 +20,7 @@
   "scripts": {
     "paideia": "node bin/paideia.mjs",
     "check": "node --check bin/paideia.mjs && for f in $(find src -name '*.mjs'); do node --check \"$f\" || exit 1; done && echo 'syntax ok'",
+    "test": "node --test test/*.test.mjs",
     "doctor": "node bin/paideia.mjs doctor"
   },
   "keywords": [
