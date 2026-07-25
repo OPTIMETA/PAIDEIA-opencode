@@ -85,6 +85,11 @@ export function listFiles(dir, ext = null, seen = null) {
     return []; // missing, EACCES, or not a directory — all mean "no files here"
   }
   const visited = seen || new Set();
+  // Seed the root, or a link pointing back at it re-enters from inside and
+  // every file at this level is reported a second time under the link's path.
+  if (!seen) {
+    try { visited.add(realpathSync(dir)); } catch { visited.add(dir); }
+  }
   const out = [];
   for (const entry of entries) {
     if (entry.name.startsWith(".")) continue;
