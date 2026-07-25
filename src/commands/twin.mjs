@@ -1,6 +1,7 @@
 import { resolveCourse, runOpencodeStage } from "../core/stage.mjs";
 import { timestamps, convertedByCategory, basename } from "../core/workspace.mjs";
 import { parseArgs, argString } from "../core/args.mjs";
+import { t } from "../core/i18n.mjs";
 
 function sourceListing(root) {
   const byCat = convertedByCategory(root);
@@ -19,14 +20,22 @@ export async function run(args, ctx) {
     return 1;
   }
 
-  if (flags.strategy && flags.strategy !== true) {
+  // `--strategy` with no value (or an empty one) parses as a bare flag.
+  // Generating a fresh twin instead of grading the strategy the user meant to
+  // submit is the one outcome they did not ask for.
+  if ("strategy" in flags) {
+    const strategy = flags.strategy === true ? "" : String(flags.strategy).trim();
+    if (!strategy) {
+      console.error(t("need_strategy", course.lang));
+      return 1;
+    }
     return runOpencodeStage({
       course,
       ctx,
       command: "twin-check",
       promptFile: "twin_check.md",
       requires: { index: true },
-      extraVars: { ARGS_BASE: id, STRATEGY: String(flags.strategy) },
+      extraVars: { ARGS_BASE: id, STRATEGY: strategy },
     });
   }
 
