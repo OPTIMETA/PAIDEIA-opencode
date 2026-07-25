@@ -55,6 +55,20 @@ test("listFiles follows symlinked directories and survives a cycle", (t) => {
   assert.doesNotThrow(() => listFiles(d, ".pdf"));
 });
 
+test("a symlink back to an ancestor does not duplicate that ancestor's files", (t) => {
+  // Re-entering the root from inside would list every top-level file a second
+  // time — in ingest that is the same PDF rendered and transcribed twice.
+  const d = tempDir();
+  put(d, "lecture.pdf");
+  mkdirSync(join(d, "sub"));
+  try {
+    symlinkSync(d, join(d, "sub", "loop"));
+  } catch {
+    return t.skip("symlinks unavailable on this platform");
+  }
+  assert.deepEqual(listFiles(d, ".pdf").map((f) => basename(f)), ["lecture.pdf"]);
+});
+
 test("writeFileAtomic replaces content and leaves no temp file behind", () => {
   const d = tempDir();
   const p = join(d, "nested", "out.md");
