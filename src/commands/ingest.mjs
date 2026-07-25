@@ -1,12 +1,10 @@
 // ingest — the harness does the deterministic half (discover, idempotence,
 // .md pass-through, render+resize PNG pages) and opencode does the vision
 // transcription. The harness then cleans scratch pages and prints the summary.
-import {
-  existsSync, statSync, mkdirSync, writeFileSync, readFileSync,
-} from "node:fs";
+import { existsSync, statSync, readdirSync, readFileSync, rmdirSync } from "node:fs";
 import { join, basename, extname } from "node:path";
 import { resolveCourse } from "../core/stage.mjs";
-import { CATEGORIES, listFiles } from "../core/workspace.mjs";
+import { CATEGORIES, listFiles, writeFileAtomic } from "../core/workspace.mjs";
 import { courseVars, buildSpec } from "../core/prompts.mjs";
 import { runStage, opencodeAvailable } from "../core/opencode.mjs";
 import { renderPdfPages, cleanup } from "../core/render.mjs";
@@ -15,6 +13,23 @@ import { t } from "../core/i18n.mjs";
 
 function isNewer(src, out) {
   try { return statSync(out).mtimeMs >= statSync(src).mtimeMs; } catch { return false; }
+}
+
+/** Was `p` written (non-empty) at or after `since`? */
+function writtenSince(p, since) {
+  try {
+    const st = statSync(p);
+    return st.size > 0 && st.mtimeMs >= since;
+  } catch {
+    return false;
+  }
+}
+
+/** rmdir if empty; leaves a directory another run is still using alone. */
+function removeIfEmpty(dir) {
+  try {
+    if (readdirSync(dir).length === 0) rmdirSync(dir);
+  } catch { /* missing, non-empty, or busy — all fine */ }
 }
 
 const today = () => new Date().toISOString().slice(0, 10);
@@ -45,6 +60,19 @@ export async function run(args, ctx) {
     return 1;
   }
 
+  // Two sources in one category that share a stem (HW01.pdf + HW01.md) map to
+  // the same converted/<cat>/<stem>.md, so whichever finishes last silently
+  // wins. The .md is authoritative — it needs no transcription — so drop the
+  // colliding PDF and say so rather than racing them.
+  const claimed = new Set(passthroughs.map((p) => p.out));
+  const collisions = jobs.filter((j) => claimed.has(j.out));
+  for (const j of collisions) {
+    console.error(lang === "ko"
+      ? `  건너뜀: materials/${j.cat}/${j.stem}.pdf — 같은 이름의 .md가 이미 ${j.stem}.md로 변환됩니다.`
+      : `  skipped: materials/${j.cat}/${j.stem}.pdf — a same-named .md already claims ${j.stem}.md.`);
+  }
+  const pdfJobs = jobs.filter((j) => !claimed.has(j.out));
+
   if (!ctx.dryRun && !opencodeAvailable()) {
     console.error(t("no_opencode", lang));
     return 1;
@@ -58,10 +86,10 @@ export async function run(args, ctx) {
     if (ctx.dryRun) { summary[p.cat].converted++; continue; }
     try {
       const body = readFileSync(p.src, "utf8");
-      mkdirSync(join(root, "converted", p.cat), { recursive: true });
-      writeFileSync(p.out,
-        `<!-- SOURCE: materials/${p.cat}/${p.stem}.md, copied ${today()}, method: passthrough -->\n\n${body}`,
-        "utf8");
+      // Atomic: a torn write would leave a truncated converted/*.md that
+      // isNewer() then treats as a valid, up-to-date conversion forever.
+      writeFileAtomic(p.out,
+        `<!-- SOURCE: materials/${p.cat}/${p.stem}.md, copied ${today()}, method: passthrough -->\n\n${body}`);
       summary[p.cat].converted++;
     } catch (e) {
       summary[p.cat].failed++;
@@ -71,7 +99,7 @@ export async function run(args, ctx) {
 
   // 3. Render PNG pages for PDFs that need conversion (skip idempotent ones).
   const worklist = [];
-  for (const j of jobs) {
+  for (const j of pdfJobs) {
     if (!force && existsSync(j.out) && isNewer(j.src, j.out)) { summary[j.cat].skipped++; continue; }
     const pagesDir = join(root, "converted", j.cat, "_pages", j.stem);
     if (ctx.dryRun) { worklist.push({ ...j, pagesDir, pages: null }); continue; }
@@ -86,7 +114,7 @@ export async function run(args, ctx) {
 
   // 4. If nothing to transcribe, just report.
   if (!worklist.length) {
-    printSummary(summary, lang);
+    printSummary(summary, lang, ctx.dryRun);
     return 0;
   }
 
@@ -104,6 +132,12 @@ export async function run(args, ctx) {
   });
 
   console.error(t("running_stage", lang, { stage: "ingest" }));
+  // Anchor freshness before the run: on a --force re-ingest the output already
+  // exists, so "the file is there" proves nothing — a stale artifact from a
+  // previous run would be counted as converted even when opencode wrote none.
+  // Floored to the second: filesystems that store mtime at 1s resolution would
+  // otherwise report a just-written file as older than the sub-second start.
+  const startedAt = Math.floor(Date.now() / 1000) * 1000;
   const res = runStage({ root, stage: "ingest", spec, model: ctx.model, dryRun: ctx.dryRun });
   if (res.dryRun) {
     console.log(t("dry_run", lang, { cmd: res.printable }));
@@ -113,20 +147,23 @@ export async function run(args, ctx) {
 
   // 6. Tally results, clean scratch pages.
   for (const w of worklist) {
-    const ok = existsSync(w.out) && statSync(w.out).size > 0;
-    summary[w.cat][ok ? "converted" : "failed"]++;
+    summary[w.cat][writtenSince(w.out, startedAt) ? "converted" : "failed"]++;
     cleanup(w.pagesDir);
   }
-  // Remove now-empty _pages parents (best effort).
-  for (const cat of CATEGORIES) cleanup(join(root, "converted", cat, "_pages"));
+  // Drop the _pages parents, but only when empty — a recursive delete here
+  // would take out the scratch of a concurrent ingest still transcribing.
+  for (const cat of CATEGORIES) removeIfEmpty(join(root, "converted", cat, "_pages"));
 
   printSummary(summary, lang);
   if (res.code !== 0) console.error(t("stage_failed", lang, { stage: "ingest", code: res.code }));
   return res.code;
 }
 
-function printSummary(summary, lang) {
+function printSummary(summary, lang, dryRun = false) {
   console.log("");
+  // In a dry run nothing was written — say so, or the table reads as a report
+  // of work that happened.
+  if (dryRun) console.log(lang === "ko" ? "[dry-run] 아래는 예정 작업입니다 (변환 없음)." : "[dry-run] planned work below; nothing was written.");
   console.log("| Category | Converted | Skipped | Failed |");
   console.log("|---|---|---|---|");
   for (const cat of CATEGORIES) {
