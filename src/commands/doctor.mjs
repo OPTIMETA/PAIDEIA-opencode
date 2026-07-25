@@ -51,6 +51,14 @@ export async function run(args, _ctx) {
   const checks = [];
   const add = (name, status, detail = "", fixCmd = "") => checks.push({ name, status, detail, fixCmd });
 
+  // ── The runtime itself ─────────────────────────────────────────────────────
+  // npm does not enforce `engines` unless engine-strict is set, so an older
+  // Node reaches us and fails later with something that looks like a bug.
+  const [major, minor] = process.versions.node.split(".").map(Number);
+  const nodeOk = major > 18 || (major === 18 && minor >= 17);
+  add("node", nodeOk ? "ok" : "fail", nodeOk ? `v${process.versions.node}`
+    : `v${process.versions.node} is below the required v18.17`, "upgrade node (https://nodejs.org)");
+
   // ── System: opencode (the execution substrate) ─────────────────────────────
   const oc = opencodeVersion();
   if (oc) {
