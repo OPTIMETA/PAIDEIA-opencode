@@ -1,6 +1,6 @@
 {
   "name": "paideia-opencode",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Exam-prep harness for math/physics courses, driving opencode. Ingests course PDFs through a vision pipeline, extracts HW-density-weighted solution patterns, drills via twins/blinds/chains/mocks, and grades hand-written answer scans. A standalone orchestration layer — not an editor plugin — that wraps opencode as its execution engine.",
   "type": "module",
   "bin": {
