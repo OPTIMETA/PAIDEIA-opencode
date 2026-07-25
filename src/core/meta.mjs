@@ -1,8 +1,9 @@
 // .course-meta read/write + exam-date math.
 // .course-meta is the per-course state file (KEY: value lines), the single
 // source of truth read by every harness command and by vision_ocr.py.
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
+import { writeFileAtomic } from "./workspace.mjs";
 
 export const META_FILE = ".course-meta";
 
@@ -29,13 +30,23 @@ export function readMeta(dir = process.cwd()) {
   return meta;
 }
 
-/** Serialize + write `.course-meta`. `order` controls key order; extras appended. */
+/**
+ * Serialize + write `.course-meta` atomically. `order` controls key order;
+ * extras are appended. Values are flattened to a single line — a stray newline
+ * would split one key into an unparseable second line and silently drop it, so
+ * the file no longer round-trips through readMeta. Keys with no value are
+ * omitted rather than written as the string "undefined".
+ */
 export function writeMeta(dir, meta, order = [
   "COURSE_NAME", "EXAM_DATE", "EXAM_TYPE", "USER_WEAK_ZONES", "OCR_ENGINE", "INTERFACE_LANG",
 ]) {
-  const keys = [...order.filter((k) => k in meta), ...Object.keys(meta).filter((k) => !order.includes(k))];
-  const body = keys.map((k) => `${k}: ${meta[k]}`).join("\n") + "\n";
-  writeFileSync(join(dir, META_FILE), body, "utf8");
+  const has = (k) => meta[k] !== undefined && meta[k] !== null;
+  const keys = [
+    ...order.filter((k) => k in meta && has(k)),
+    ...Object.keys(meta).filter((k) => !order.includes(k) && has(k)),
+  ];
+  const body = keys.map((k) => `${k}: ${String(meta[k]).replace(/[\r\n]+/g, " ").trim()}`).join("\n") + "\n";
+  writeFileAtomic(join(dir, META_FILE), body);
 }
 
 /** The course's interface language, normalized to "en" | "ko" (default "en"). */
@@ -44,13 +55,30 @@ export function interfaceLang(meta) {
   return v === "ko" ? "ko" : "en";
 }
 
-/** Days from today until the exam date (YYYY-MM-DD). null if unparseable. */
-export function daysUntil(examDate) {
+/** True iff `s` is a real calendar date in YYYY-MM-DD (2026-02-30 is not). */
+export function isValidExamDate(s) {
+  return parseExamDate(s) !== null;
+}
+
+/**
+ * Parse YYYY-MM-DD into a local-midnight Date, or null. The round-trip check
+ * matters: `new Date(2026, 12, 45)` does not produce NaN, it silently rolls
+ * over into 2027 — so a typo'd EXAM_DATE would yield a confident, wrong D-N.
+ */
+function parseExamDate(examDate) {
   if (!examDate) return null;
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(examDate).trim());
   if (!m) return null;
-  const exam = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
-  if (Number.isNaN(exam.getTime())) return null;
+  const [y, mo, d] = [Number(m[1]), Number(m[2]), Number(m[3])];
+  const exam = new Date(y, mo - 1, d);
+  if (exam.getFullYear() !== y || exam.getMonth() !== mo - 1 || exam.getDate() !== d) return null;
+  return exam;
+}
+
+/** Days from today until the exam date (YYYY-MM-DD). null if unparseable. */
+export function daysUntil(examDate) {
+  const exam = parseExamDate(examDate);
+  if (!exam) return null;
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   return Math.round((exam.getTime() - today.getTime()) / 86400000);
