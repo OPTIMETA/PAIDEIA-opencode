@@ -62,7 +62,10 @@ export function t(key, lang = "en", vars = {}) {
   const bundle = STRINGS[key] || {};
   let s = bundle[lang] || bundle.en || key;
   for (const [k, v] of Object.entries(vars)) {
-    s = s.replaceAll(`{${k}}`, String(v));
+    // Replacer function: with a replacement *string*, `$&` and friends inside
+    // a value are expanded as patterns — a course path containing `$&` would
+    // come back with the placeholder text spliced into it.
+    s = s.replaceAll(`{${k}}`, () => String(v));
   }
   return s;
 }

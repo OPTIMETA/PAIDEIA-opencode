@@ -115,6 +115,16 @@ test("buildSpec carries system rules, context and the command prompt", () => {
   assert.ok(!/\{\{[A-Z0-9_]+\}\}/.test(spec), "every placeholder must be resolved");
 });
 
+test("t() inserts values literally, without $-pattern expansion", () => {
+  // `$&` in a replacement string expands to the matched text — a course path
+  // containing it would come back with "{path}" spliced into the middle.
+  const out = t("spec_written", "en", { path: "/tmp/My$&Course/spec.md" });
+  assert.ok(out.includes("/tmp/My$&Course/spec.md"), out);
+  assert.ok(!out.includes("{path}"), out);
+  assert.equal(t("stage_failed", "en", { stage: "$'x", code: "$`" }),
+    "✗ $'x failed (opencode exit $`). See output above.");
+});
+
 test("t() localizes and falls back; pick() selects a language half", () => {
   assert.match(t("need_ingest", "ko"), /converted\//);
   assert.equal(t("stage_done", "en", { stage: "quiz" }), "✓ quiz complete.");

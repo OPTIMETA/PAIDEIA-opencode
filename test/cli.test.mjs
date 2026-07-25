@@ -194,9 +194,14 @@ test("doctor checks the node version against engines", () => {
 test("grade rejects an unknown OCR engine instead of falling back silently", () => {
   const root = tempCourse();
   put(root, "answers/hw01.md", "# answer");
-  const r = paideia(["grade", "--ocr=nonsense", "--dry-run"], root);
-  assert.equal(r.status, 1);
-  assert.match(r.stderr, /unknown OCR engine 'nonsense'/);
+  // "constructor" and "__proto__" survive the lowercasing that normalizes the
+  // engine name, so they reach the lookup table intact.
+  for (const bad of ["nonsense", "constructor", "__proto__"]) {
+    const r = paideia(["grade", `--ocr=${bad}`, "--dry-run"], root);
+    assert.equal(r.status, 1, `--ocr=${bad} should be rejected`);
+    assert.match(r.stderr, new RegExp(`unknown OCR engine '${bad.replace(/\W/g, ".")}'`));
+    assert.ok(!/would run/.test(r.stdout), `--ocr=${bad} composed a stage anyway`);
+  }
 });
 
 test("grade reports when there is no answer to grade", () => {

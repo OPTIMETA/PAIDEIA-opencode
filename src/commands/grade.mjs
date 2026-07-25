@@ -15,7 +15,12 @@ import { describeSpawnFailure, longRunTimeoutMs } from "../core/proc.mjs";
 import { parseArgs } from "../core/args.mjs";
 import { t } from "../core/i18n.mjs";
 
-const ENGINE_ALIAS = { claude: "vision", agent: "vision", vision: "vision", ollama: "ollama", tesseract: "tesseract" };
+// Null-prototype: the key is whatever the user typed after --ocr, and on a
+// normal object `ENGINE_ALIAS["constructor"]` is a truthy inherited function —
+// it passed the unknown-engine guard and reached the spec as the engine name.
+const ENGINE_ALIAS = Object.assign(Object.create(null), {
+  claude: "vision", agent: "vision", vision: "vision", ollama: "ollama", tesseract: "tesseract",
+});
 
 /** True iff `p` is inside `dir` (and not merely prefixed by its name). */
 function isInside(dir, p) {
