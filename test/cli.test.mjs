@@ -40,6 +40,17 @@ test("an unknown command fails with a pointer to --help", () => {
   assert.match(r.stderr, /unknown command 'frobnicate'/);
 });
 
+test("a command name that collides with Object.prototype is still unknown", () => {
+  // The lookup key is user input; on a normal object these resolve to
+  // inherited members and slip past the guard into a module-import crash.
+  for (const name of ["constructor", "toString", "__proto__", "hasOwnProperty"]) {
+    const r = paideia([name]);
+    assert.equal(r.status, 1, `${name} should be rejected`);
+    assert.match(r.stderr, new RegExp(`unknown command '${name.replace(/\W/g, ".")}'`));
+    assert.ok(!/ERR_MODULE_NOT_FOUND/.test(r.stderr), `${name} leaked a module error`);
+  }
+});
+
 test("--model without a value is rejected rather than silently ignored", () => {
   const r = paideia(["quiz", "--model"]);
   assert.equal(r.status, 1);

@@ -4,8 +4,12 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { harnessRoot } from "./core/workspace.mjs";
 
-// command name (and aliases) → module file under ./commands/
-export const COMMANDS = {
+// command name (and aliases) → module file under ./commands/.
+// Null-prototype: the lookup key is user input, and on a normal object
+// `COMMANDS["constructor"]` resolves to an inherited function — so `paideia
+// constructor` slipped past the unknown-command guard and died trying to
+// import a module named after the function's source text.
+export const COMMANDS = Object.assign(Object.create(null), {
   "init-course": "init-course", init: "init-course",
   ingest: "ingest",
   analyze: "analyze",
@@ -23,7 +27,7 @@ export const COMMANDS = {
   alt: "alt",
   doctor: "doctor",
   status: "status",
-};
+});
 
 function version() {
   try {
