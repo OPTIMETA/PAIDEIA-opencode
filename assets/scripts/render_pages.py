@@ -33,6 +33,16 @@ def main() -> int:
     out = Path(args.out_dir)
     out.mkdir(parents=True, exist_ok=True)
 
+    # Clear pages left by an earlier render of this same document. Without this
+    # a re-render of a now-shorter PDF (or a run that died mid-way) leaves
+    # orphan p07..p20.png behind, and the vision stage transcribes pages that
+    # are no longer part of the source.
+    for stale in out.glob(f"{args.prefix}*.png"):
+        try:
+            stale.unlink()
+        except OSError:
+            pass
+
     images = convert_from_path(args.pdf, dpi=args.dpi)
     for i, im in enumerate(images, 1):
         w, h = im.size

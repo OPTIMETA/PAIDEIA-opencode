@@ -4,16 +4,38 @@ import { spawnSync } from "node:child_process";
 import { existsSync, rmSync } from "node:fs";
 import { assetPath } from "./workspace.mjs";
 
-/** Resolve a usable python interpreter. */
+// Resolving python costs a process spawn per candidate; `ingest` asks once per
+// PDF. The interpreter cannot change mid-run, so probe at most once.
+let pythonProbe;
+
+/** Resolve a usable python interpreter (memoized). */
 export function pythonBin() {
+  if (pythonProbe !== undefined) return pythonProbe;
+  pythonProbe = null;
   for (const cand of [process.env.PAIDEIA_PYTHON, "python3", "python"]) {
     if (!cand) continue;
     try {
       const r = spawnSync(cand, ["--version"], { encoding: "utf8", timeout: 10000 });
-      if (r.status === 0 || /python/i.test(`${r.stdout}${r.stderr}`)) return cand;
+      if (r.status === 0 || /python/i.test(`${r.stdout}${r.stderr}`)) { pythonProbe = cand; break; }
     } catch { /* try next */ }
   }
-  return null;
+  return pythonProbe;
+}
+
+/**
+ * Turn a spawnSync result into one readable line. spawnSync reports a failure
+ * to *start* (ENOENT) and a timeout kill via `error`/`signal` with a null
+ * status — so the naive `exit ${r.status}` renders the two most common
+ * failures as the useless "exit null".
+ */
+export function describeSpawnFailure(r, what) {
+  if (r.error) {
+    if (r.error.code === "ETIMEDOUT" || r.signal === "SIGTERM") return `${what} timed out`;
+    return `${what} could not start: ${r.error.message}`;
+  }
+  if (r.signal) return `${what} was killed by ${r.signal}`;
+  const stderr = `${r.stderr || ""}`.trim();
+  return stderr || `${what} failed (exit ${r.status})`;
 }
 
 /**
@@ -30,7 +52,7 @@ export function renderPdfPages(pdf, outDir, { dpi = 160, maxPx = 1800, prefix = 
     { encoding: "utf8", timeout: 600000 },
   );
   if (r.status !== 0) {
-    const msg = `${r.stderr || ""}`.trim() || `render failed (exit ${r.status})`;
+    const msg = describeSpawnFailure(r, "render_pages.py");
     if (/No module named/.test(msg)) {
       throw new Error(`${msg}\n  → install: python3 -m pip install --user pdf2image pillow (and poppler).`);
     }
