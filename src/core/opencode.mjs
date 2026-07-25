@@ -74,7 +74,9 @@ export function runStage({ root, stage, spec, model, dryRun = false, askPerms = 
   writeFileAtomic(specPath, spec);
 
   const specRel = relative(root, specPath) || specPath;
-  const driver = DRIVER.replace("{specRel}", specRel);
+  // Replacer function, not a replacement string: `$&`/`$'` in a path would
+  // otherwise be expanded by String.replace instead of inserted literally.
+  const driver = DRIVER.replace("{specRel}", () => specRel);
 
   // The driver message goes FIRST, immediately after the subcommand. `-f` is a
   // variadic (array) option in opencode's parser: with the message trailing, a
