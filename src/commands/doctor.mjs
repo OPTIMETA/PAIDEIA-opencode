@@ -4,8 +4,8 @@
 import { spawnSync } from "node:child_process";
 import { existsSync } from "node:fs";
 import { join } from "node:path";
-import { findCourseRoot, readMeta, interfaceLang } from "../core/meta.mjs";
-import { SKELETON, ensureSkeleton } from "../core/workspace.mjs";
+import { findCourseRoot, readMeta, interfaceLang, isValidExamDate } from "../core/meta.mjs";
+import { SKELETON, ensureSkeleton, assetPath } from "../core/workspace.mjs";
 import { pythonBin } from "../core/render.mjs";
 import { opencodeVersion, opencodeAuthList } from "../core/opencode.mjs";
 import { parseArgs } from "../core/args.mjs";
@@ -19,9 +19,24 @@ function probe(cmd, args = ["--version"]) {
   }
 }
 
-function pyImport(py, mod) {
-  const r = spawnSync(py, ["-c", `import ${mod}`], { encoding: "utf8", timeout: 20000 });
-  return r.status === 0;
+/**
+ * Which of `mods` fail to import, in ONE interpreter start. Probing six modules
+ * with six `python -c` spawns is six process starts (~1s+ each on Windows and
+ * cold macOS) for information a single script yields at once.
+ */
+function missingPyModules(py, mods) {
+  const script = "import importlib.util,sys\n"
+    + `mods=${JSON.stringify(mods)}\n`
+    + "print('\\n'.join(m for m in mods if importlib.util.find_spec(m) is None))";
+  try {
+    const r = spawnSync(py, ["-c", script], { encoding: "utf8", timeout: 30000 });
+    // A probe that cannot run at all tells us nothing — do not report every
+    // module as missing on the strength of a broken interpreter invocation.
+    if (r.status !== 0) return null;
+    return `${r.stdout || ""}`.split("\n").map((s) => s.trim()).filter(Boolean);
+  } catch {
+    return null;
+  }
 }
 
 const ICON = { ok: "✓", warn: "⚠", fail: "✗" };
@@ -41,7 +56,9 @@ export async function run(args, _ctx) {
   if (oc) {
     add("opencode", "ok", oc.split("\n")[0]);
     const auth = opencodeAuthList();
-    if (/\b(anthropic|openai|google|opencode|github|amazon|azure|openrouter|model)\b/i.test(auth)) {
+    // Provider names only — a generic token like "model" matches the table
+    // header of an otherwise empty listing and reports auth that is not there.
+    if (/\b(anthropic|openai|google|opencode|github|amazon|azure|openrouter)\b/i.test(auth)) {
       add("opencode auth", "ok", "provider(s) configured");
     } else {
       add("opencode auth", "warn", "no providers detected", "opencode auth login");
@@ -55,19 +72,26 @@ export async function run(args, _ctx) {
   const py = pythonBin();
   if (py) {
     add("python3", "ok", probe(py).out.split("\n")[0]);
-    const need = { pdf2image: "render", PIL: "render", pytesseract: "ocr", pypdf: "pdf", pdfplumber: "pdf", reportlab: "cheatsheet-pdf" };
-    const missing = Object.keys(need).filter((m) => !pyImport(py, m));
-    const renderMissing = missing.filter((m) => ["pdf2image", "PIL"].includes(m));
-    if (renderMissing.length) {
-      add("python: render deps", "fail", `missing: ${renderMissing.join(", ")}`,
-        "python3 -m pip install --user pdf2image pillow");
+    const RENDER_MODS = ["pdf2image", "PIL"];
+    const need = [...RENDER_MODS, "pytesseract", "pypdf", "pdfplumber", "reportlab"];
+    const pipName = (m) => (m === "PIL" ? "pillow" : m);
+    const missing = missingPyModules(py, need);
+    if (missing === null) {
+      add("python: modules", "warn", "could not probe imports with this interpreter",
+        `${py} -c "import pdf2image, PIL"`);
     } else {
-      add("python: render deps", "ok", "pdf2image, pillow");
-    }
-    const optMissing = missing.filter((m) => !["pdf2image", "PIL"].includes(m));
-    if (optMissing.length) {
-      add("python: optional deps", "warn", `missing: ${optMissing.join(", ")}`,
-        `python3 -m pip install --user ${optMissing.map((m) => (m === "PIL" ? "pillow" : m)).join(" ")}`);
+      const renderMissing = missing.filter((m) => RENDER_MODS.includes(m));
+      if (renderMissing.length) {
+        add("python: render deps", "fail", `missing: ${renderMissing.join(", ")}`,
+          `python3 -m pip install --user ${renderMissing.map(pipName).join(" ")}`);
+      } else {
+        add("python: render deps", "ok", "pdf2image, pillow");
+      }
+      const optMissing = missing.filter((m) => !RENDER_MODS.includes(m));
+      if (optMissing.length) {
+        add("python: optional deps", "warn", `missing: ${optMissing.join(", ")}`,
+          `python3 -m pip install --user ${optMissing.map(pipName).join(" ")}`);
+      }
     }
   } else {
     add("python3", "fail", "not found — required for PDF rendering + local OCR",
@@ -110,25 +134,62 @@ export async function run(args, _ctx) {
     }
   }
 
+  // ── The harness install itself ─────────────────────────────────────────────
+  // A partial install (a publish that dropped assets/, a half-finished clone)
+  // fails deep inside a stage with a bare ENOENT. Check the bundled files the
+  // stages actually load, here, where the message can say what is wrong.
+  const BUNDLED = [
+    ...["_system", "ingest", "analyze", "hwmap", "pattern", "quiz", "mock", "twin", "twin_check",
+      "blind", "blind_check", "chain", "derive", "grade", "weakmap", "cheatsheet", "alt"]
+      .map((p) => assetPath("prompts", `${p}.md`)),
+    ...["render_pages.py", "vision_ocr.py", "md_to_pdf.py"].map((s) => assetPath("scripts", s)),
+  ];
+  const missingAssets = BUNDLED.filter((p) => !existsSync(p));
+  add("bundled assets", missingAssets.length ? "fail" : "ok",
+    missingAssets.length
+      ? `${missingAssets.length} missing (e.g. ${missingAssets[0]}) — reinstall paideia`
+      : `${BUNDLED.length} prompts + scripts present`);
+
   // ── Course mode ────────────────────────────────────────────────────────────
   if (root) {
+    // --fix repairs the skeleton and reseeds errors/log.md; report what the
+    // repair actually achieved rather than assuming it succeeded.
+    let repairError = null;
     const missingDirs = SKELETON.filter((d) => !existsSync(join(root, d)));
-    if (missingDirs.length) {
-      if (fix) { ensureSkeleton(root); add("workspace skeleton", "ok", `repaired ${missingDirs.length} dir(s)`); }
-      else add("workspace skeleton", "warn", `${missingDirs.length} dir(s) missing`, "paideia doctor --fix");
-    } else add("workspace skeleton", "ok", "");
+    if (fix) {
+      try { ensureSkeleton(root); } catch (e) { repairError = e.message; }
+    }
+    if (repairError) {
+      add("workspace skeleton", "fail", `repair failed: ${repairError}`);
+    } else if (!missingDirs.length) {
+      add("workspace skeleton", "ok", "");
+    } else if (fix) {
+      add("workspace skeleton", "ok", `repaired ${missingDirs.length} dir(s)`);
+    } else {
+      add("workspace skeleton", "warn", `${missingDirs.length} dir(s) missing`, "paideia doctor --fix");
+    }
 
     const required = ["COURSE_NAME", "EXAM_DATE", "OCR_ENGINE", "INTERFACE_LANG"];
     const missingMeta = required.filter((k) => !meta[k]);
-    add(".course-meta", missingMeta.length ? "warn" : "ok",
-      missingMeta.length ? `missing keys: ${missingMeta.join(", ")} (edit .course-meta or re-run init-course)` : "");
+    if (missingMeta.length) {
+      add(".course-meta", "warn",
+        `missing keys: ${missingMeta.join(", ")} (edit .course-meta or re-run init-course)`);
+    } else if (!isValidExamDate(meta.EXAM_DATE)) {
+      // Every D-N, the phase line and each stage's urgency framing read this.
+      add(".course-meta", "warn",
+        `EXAM_DATE '${meta.EXAM_DATE}' is not a real YYYY-MM-DD date — D-N shows as D-?`,
+        "edit .course-meta: EXAM_DATE: YYYY-MM-DD");
+    } else {
+      add(".course-meta", "ok", "");
+    }
 
-    add("errors/log.md", existsSync(join(root, "errors", "log.md")) ? "ok" : (fix ? "ok" : "warn"),
-      existsSync(join(root, "errors", "log.md")) ? "" : "missing (run with --fix)", "paideia doctor --fix");
-    if (fix) ensureSkeleton(root);
+    const logPresent = existsSync(join(root, "errors", "log.md"));
+    add("errors/log.md", logPresent ? "ok" : "warn",
+      logPresent ? "" : "missing (run with --fix)", "paideia doctor --fix");
 
-    add("opencode.json", existsSync(join(root, "opencode.json")) ? "ok" : "warn",
-      existsSync(join(root, "opencode.json")) ? "" : "no workspace config (re-run init-course)");
+    const hasCfg = existsSync(join(root, "opencode.json"));
+    add("opencode.json", hasCfg ? "ok" : "warn",
+      hasCfg ? "" : "no workspace config (re-run init-course)");
   } else {
     add("mode", "warn", "no .course-meta here — global checks only. Run `paideia init-course` in a course folder.");
   }
