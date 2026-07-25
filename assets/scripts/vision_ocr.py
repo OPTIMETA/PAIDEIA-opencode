@@ -293,7 +293,10 @@ def ocr_pdf(
             body = "<!-- TIER: tesseract fallback -->\n\n" + tesseract_fallback(images, effective_lang)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(header + body)
+    # Explicit UTF-8: write_text otherwise uses the locale encoding, and a
+    # Korean transcription on a non-UTF-8 default (Windows cp949/cp1252) dies
+    # with UnicodeEncodeError after the whole PDF has already been read.
+    out_path.write_text(header + body, encoding="utf-8")
     sys.stderr.write(f"[vision-ocr] wrote {out_path} ({len(header+body)} chars)\n")
 
 
