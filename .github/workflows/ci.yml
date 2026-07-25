@@ -1,0 +1,41 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        node: ["18.17", "20", "22", "24"]
+        include:
+          # The harness shells out to python/poppler and walks the filesystem;
+          # macOS is the primary desktop target, so cover it on current Node.
+          - os: macos-latest
+            node: "22"
+    name: node ${{ matrix.node }} · ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm run check
+      - run: npm test
+
+  python:
+    name: bundled scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      # The scripts ship as source and are executed by the harness at runtime;
+      # a syntax error would only surface mid-ingest on a user's machine.
+      - run: python -m compileall -q assets/scripts
