@@ -5,29 +5,33 @@
 // The harness owns WHAT to do (the spec); opencode owns the model, the tools,
 // and auth. Each PAIDEIA stage = one `opencode run` invocation.
 import { spawnSync } from "node:child_process";
-import { writeFileSync, mkdirSync } from "node:fs";
 import { join, relative } from "node:path";
-import { timestamps } from "./workspace.mjs";
+import { timestamps, writeFileAtomic, uniqueToken } from "./workspace.mjs";
+
+// `opencode --version` is probed by both availability and version checks, and
+// on every stage run. Spawning a process is the expensive part of an otherwise
+// instant command, and the answer cannot change mid-run — probe once.
+let versionProbe;
+function probeVersion() {
+  if (versionProbe !== undefined) return versionProbe;
+  try {
+    const r = spawnSync("opencode", ["--version"], { encoding: "utf8", timeout: 15000 });
+    const out = `${`${r.stdout || ""}${r.stderr || ""}`}`.trim();
+    versionProbe = { ok: r.status === 0 || out.length > 0, out };
+  } catch {
+    versionProbe = { ok: false, out: "" };
+  }
+  return versionProbe;
+}
 
 /** Is the `opencode` binary present and runnable? */
 export function opencodeAvailable() {
-  try {
-    const r = spawnSync("opencode", ["--version"], { encoding: "utf8", timeout: 15000 });
-    return r.status === 0 || (typeof r.stdout === "string" && r.stdout.trim().length > 0);
-  } catch {
-    return false;
-  }
+  return probeVersion().ok;
 }
 
 /** opencode version string, or null. */
 export function opencodeVersion() {
-  try {
-    const r = spawnSync("opencode", ["--version"], { encoding: "utf8", timeout: 15000 });
-    const out = `${r.stdout || ""}${r.stderr || ""}`.trim();
-    return out || null;
-  } catch {
-    return null;
-  }
+  return probeVersion().out || null;
 }
 
 /** Authenticated providers, parsed loosely from `opencode auth list`. */
@@ -62,26 +66,30 @@ summary block the specification asks you to print, and nothing else.`;
  * Returns { code, specPath, argv }.
  */
 export function runStage({ root, stage, spec, model, dryRun = false, askPerms = false }) {
-  const ts = timestamps().compact;
-  const runDir = join(root, ".paideia", "run");
-  mkdirSync(runDir, { recursive: true });
-  const specPath = join(runDir, `${stage}-${ts}.md`);
-  writeFileSync(specPath, spec, "utf8");
+  // The timestamp is only second-resolution, so two stages started in the same
+  // second would write the same spec path and clobber each other's task. The
+  // token makes the name unique per process; the write is atomic so opencode
+  // can never attach a half-written spec.
+  const specPath = join(root, ".paideia", "run", `${stage}-${timestamps().compact}-${uniqueToken()}.md`);
+  writeFileAtomic(specPath, spec);
 
   const specRel = relative(root, specPath) || specPath;
   const driver = DRIVER.replace("{specRel}", specRel);
 
-  const argv = ["run", "--dir", root, "-f", specPath];
+  // The driver message goes FIRST, immediately after the subcommand. `-f` is a
+  // variadic (array) option in opencode's parser: with the message trailing, a
+  // run that ends `-f <spec> <message>` has the message swallowed into the file
+  // list and opencode is invoked with an empty prompt.
+  const argv = ["run", driver, "--dir", root];
   const effModel = model || process.env.PAIDEIA_MODEL;
   if (effModel) argv.push("-m", effModel);
   if (!askPerms && !process.env.PAIDEIA_ASK_PERMISSIONS) {
     argv.push("--dangerously-skip-permissions");
   }
-  argv.push(driver);
+  argv.push("-f", specPath);
 
   if (dryRun) {
-    const printable = ["opencode", ...argv.map((a) => (/\s/.test(a) ? JSON.stringify(a) : a))].join(" ");
-    return { code: 0, specPath, argv, dryRun: true, printable };
+    return { code: 0, specPath, argv, dryRun: true, printable: printableCommand(argv) };
   }
 
   // Generous safety timeout so a hung/runaway opencode never blocks forever.
