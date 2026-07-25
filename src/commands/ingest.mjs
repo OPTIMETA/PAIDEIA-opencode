@@ -73,11 +73,6 @@ export async function run(args, ctx) {
   }
   const pdfJobs = jobs.filter((j) => !claimed.has(j.out));
 
-  if (!ctx.dryRun && !opencodeAvailable()) {
-    console.error(t("no_opencode", lang));
-    return 1;
-  }
-
   const summary = Object.fromEntries(CATEGORIES.map((c) => [c, { converted: 0, skipped: 0, failed: 0 }]));
 
   // 2. .md pass-through (deterministic; no model needed).
@@ -97,10 +92,24 @@ export async function run(args, ctx) {
     }
   }
 
-  // 3. Render PNG pages for PDFs that need conversion (skip idempotent ones).
-  const worklist = [];
+  // 3. Which PDFs still need conversion? (Idempotence: skip up-to-date ones.)
+  const pending = [];
   for (const j of pdfJobs) {
     if (!force && existsSync(j.out) && isNewer(j.src, j.out)) { summary[j.cat].skipped++; continue; }
+    pending.push(j);
+  }
+
+  // Only transcription needs a model. A course of .md materials — or one whose
+  // PDFs are all already converted — must not be blocked on opencode, and a
+  // missing opencode must be reported before we spend minutes rasterizing.
+  if (pending.length && !ctx.dryRun && !opencodeAvailable()) {
+    console.error(t("no_opencode", lang));
+    return 1;
+  }
+
+  // 4. Render PNG pages for the pending PDFs.
+  const worklist = [];
+  for (const j of pending) {
     const pagesDir = join(root, "converted", j.cat, "_pages", j.stem);
     if (ctx.dryRun) { worklist.push({ ...j, pagesDir, pages: null }); continue; }
     try {
@@ -112,13 +121,13 @@ export async function run(args, ctx) {
     }
   }
 
-  // 4. If nothing to transcribe, just report.
+  // 5. If nothing to transcribe, just report.
   if (!worklist.length) {
     printSummary(summary, lang, ctx.dryRun);
     return 0;
   }
 
-  // 5. Drive opencode to transcribe the rendered pages.
+  // 6. Drive opencode to transcribe the rendered pages.
   const listing = worklist.map((w, i) =>
     `${i + 1}. [${w.cat}] ${w.stem} — pages: ${w.pagesDir}${w.pages ? `/p01..p${String(w.pages).padStart(2, "0")}.png (${w.pages})` : ""}\n`
     + `   output: converted/${w.cat}/${w.stem}.md   source: materials/${w.cat}/${w.stem}.pdf`
@@ -145,7 +154,7 @@ export async function run(args, ctx) {
     return 0;
   }
 
-  // 6. Tally results, clean scratch pages.
+  // 7. Tally results, clean scratch pages.
   for (const w of worklist) {
     summary[w.cat][writtenSince(w.out, startedAt) ? "converted" : "failed"]++;
     cleanup(w.pagesDir);
