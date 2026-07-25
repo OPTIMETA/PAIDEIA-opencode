@@ -2,31 +2,35 @@
 // workspace: interactive language/OCR/metadata prompts, the directory skeleton,
 // .course-meta, AGENTS.md (course context loaded ambiently by opencode via the
 // opencode.json `instructions` key), opencode.json, and git. No model needed.
-import { existsSync, writeFileSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync, copyFileSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 import { createInterface } from "node:readline/promises";
 import { stdin, stdout } from "node:process";
-import { ensureSkeleton } from "../core/workspace.mjs";
-import { writeMeta } from "../core/meta.mjs";
+import { ensureSkeleton, writeFileAtomic } from "../core/workspace.mjs";
+import { writeMeta, isValidExamDate } from "../core/meta.mjs";
 import { parseArgs } from "../core/args.mjs";
 
-// On a TTY we ask interactively; otherwise we consume piped lines (one per
-// prompt) and fall back to the default once they run out — so the command is
-// usable both interactively and in scripts (and never hangs on /dev/null).
-function makeAsker(rl) {
-  let fed = null;
-  if (!stdin.isTTY) {
-    try { fed = readFileSync(0, "utf8").split(/\r?\n/); } catch { fed = []; }
+/**
+ * On a TTY we ask interactively; otherwise we consume piped lines (one per
+ * prompt) and fall back to the default once they run out — so the command is
+ * usable both interactively and in scripts (and never hangs on /dev/null).
+ *
+ * The readline interface is created ONLY for a TTY. Attaching one to a piped
+ * stdin starts an async read of the very fd that readFileSync(0) then reads
+ * synchronously — the two race for the same bytes, and the resumed stream can
+ * keep the process alive after the command is done.
+ */
+function makeAsker() {
+  if (stdin.isTTY) {
+    const rl = createInterface({ input: stdin, output: stdout });
+    const ask = async (text, fallback = "") => (await rl.question(text)).trim() || fallback;
+    return { ask, close: () => { rl.close(); stdin.pause(); }, interactive: true };
   }
-  return async function prompt(text, fallback = "") {
-    if (fed) {
-      const v = (fed.length ? fed.shift() : "").trim();
-      return v || fallback;
-    }
-    const ans = (await rl.question(text)).trim();
-    return ans || fallback;
-  };
+  let fed;
+  try { fed = readFileSync(0, "utf8").split(/\r?\n/); } catch { fed = []; }
+  const ask = async (_text, fallback = "") => (fed.length ? fed.shift() : "").trim() || fallback;
+  return { ask, close: () => {}, interactive: false };
 }
 
 const ENGINE_BLOCK = {
@@ -122,6 +126,22 @@ __pycache__/
 # Do NOT ignore answers/converted/*.md or the generated reference solutions.
 `;
 
+const GITIGNORE_MARKER = "# --- paideia course workspace ---";
+
+/**
+ * Ensure the course ignore rules are present in `<root>/.gitignore`, exactly
+ * once. Idempotent: keyed on a marker line, so re-running init-course (or
+ * running it inside a repo that already has a .gitignore) appends nothing.
+ */
+function ensureGitignore(root) {
+  const gi = join(root, ".gitignore");
+  let current = "";
+  try { current = readFileSync(gi, "utf8"); } catch { /* no .gitignore yet */ }
+  if (current.includes(GITIGNORE_MARKER)) return;
+  const body = current && !current.endsWith("\n") ? `${current}\n` : current;
+  writeFileAtomic(gi, `${body}${body ? "\n" : ""}${GITIGNORE_MARKER}\n${COURSE_GITIGNORE}`);
+}
+
 export async function run(args, _ctx) {
   const { flags } = parseArgs(args);
   const root = process.cwd();
@@ -131,8 +151,7 @@ export async function run(args, _ctx) {
     return 0;
   }
 
-  const rl = createInterface({ input: stdin, output: stdout });
-  const ask = makeAsker(rl);
+  const { ask, close, interactive } = makeAsker();
   try {
     // Step 0 — interface language (always asked in English).
     const langRaw = await ask(
@@ -148,7 +167,20 @@ export async function run(args, _ctx) {
       ? ["코스 이름 (예: Complex Analysis MATH 405)\n> ", "시험 날짜 (YYYY-MM-DD)\n> ", "시험 종류 (midterm/final/qualifier)\n> ", "약한 토픽 (쉼표로 구분, 또는 unknown)\n> "]
       : ["Course name (e.g. Complex Analysis MATH 405)\n> ", "Exam date (YYYY-MM-DD)\n> ", "Exam type (midterm/final/qualifier)\n> ", "Weak topics (comma-separated, or unknown)\n> "];
     const COURSE_NAME = await ask(q[0], "Untitled Course");
-    const EXAM_DATE = await ask(q[1], "");
+    // EXAM_DATE drives every D-N, the phase line, and each stage's urgency
+    // framing. A silently-bad date degrades all of them to "D-?" with no hint
+    // as to why, so validate here — re-asking on a TTY, warning otherwise.
+    let EXAM_DATE = await ask(q[1], "");
+    for (let tries = 0; interactive && EXAM_DATE && !isValidExamDate(EXAM_DATE) && tries < 3; tries++) {
+      EXAM_DATE = await ask(lang === "ko"
+        ? `  '${EXAM_DATE}' 는 올바른 날짜가 아닙니다. YYYY-MM-DD 형식으로 입력하세요 (건너뛰려면 Enter)\n> `
+        : `  '${EXAM_DATE}' is not a valid date. Enter it as YYYY-MM-DD (or Enter to skip)\n> `, "");
+    }
+    if (EXAM_DATE && !isValidExamDate(EXAM_DATE)) {
+      console.error(lang === "ko"
+        ? `  ⚠ EXAM_DATE '${EXAM_DATE}' 를 해석할 수 없습니다 — D-N이 D-?로 표시됩니다. .course-meta에서 수정하세요.`
+        : `  ⚠ EXAM_DATE '${EXAM_DATE}' is unparseable — D-N will show as D-?. Fix it in .course-meta.`);
+    }
     const EXAM_TYPE = await ask(q[2], "final");
     const USER_WEAK_ZONES = await ask(q[3], "unknown");
 
@@ -157,18 +189,30 @@ export async function run(args, _ctx) {
     // Step 3 — skeleton + state files.
     ensureSkeleton(root);
     writeMeta(root, meta);
-    writeFileSync(join(root, "AGENTS.md"), agentsMd(meta), "utf8");
+    // AGENTS.md is documented as user-editable course context, so a re-bootstrap
+    // (--force) must not silently discard hand-written notes.
+    const agentsPath = join(root, "AGENTS.md");
+    const nextAgents = agentsMd(meta);
+    if (existsSync(agentsPath) && readFileSync(agentsPath, "utf8") !== nextAgents) {
+      copyFileSync(agentsPath, `${agentsPath}.bak`);
+      console.log("  (existing AGENTS.md backed up to AGENTS.md.bak)");
+    }
+    writeFileAtomic(agentsPath, nextAgents);
     if (!existsSync(join(root, "opencode.json"))) {
-      writeFileSync(join(root, "opencode.json"), OPENCODE_JSON(process.env.PAIDEIA_MODEL), "utf8");
+      writeFileAtomic(join(root, "opencode.json"), OPENCODE_JSON(process.env.PAIDEIA_MODEL));
     }
 
-    // Step 4 — git.
+    // Step 4 — git. The ignore rules must land whether or not *we* created the
+    // repo: a course initialized inside an existing repo would otherwise commit
+    // run scratch and the original answer scans.
+    ensureGitignore(root);
     if (!existsSync(join(root, ".git"))) {
       spawnSync("git", ["init", "-q"], { cwd: root });
-      const gi = join(root, ".gitignore");
-      writeFileSync(gi, existsSync(gi) ? readFileSync(gi, "utf8") + "\n" + COURSE_GITIGNORE : COURSE_GITIGNORE, "utf8");
       spawnSync("git", ["add", "-A"], { cwd: root });
-      spawnSync("git", ["commit", "-q", "-m", "paideia: initial setup"], { cwd: root });
+      const c = spawnSync("git", ["commit", "-q", "-m", "paideia: initial setup"], { cwd: root, encoding: "utf8" });
+      if (c.status !== 0) {
+        console.log("  (git: initial commit skipped — set user.name/user.email, then commit manually)");
+      }
     }
 
     // Step 5 — next steps.
@@ -195,6 +239,6 @@ export async function run(args, _ctx) {
     }
     return 0;
   } finally {
-    rl.close();
+    close();
   }
 }
