@@ -409,7 +409,7 @@ Errors get logged as YAML to `errors/log.md` with a typed classification (`patte
 
 `weakmap/` never overwrites — every run produces `weakmap/weakmap_<ISO-timestamp>.md`, so `git log weakmap/` is "`git diff` your own understanding over time."
 
-`paideia status` reports where you are in the cycle — `paideia · <COURSE> · D-<days> · <phase> · P<top-miss> ↑` — derived from **activity on disk**, not the calendar: `setup` (no `patterns.md`) → `diag` (no graded error yet) → `drill` (quiz problems + a graded `- problem_id:` entry) → `mock` (a mock-sourced entry appeared) → `cram` (`cheatsheet/final.*` exists) → `cool` (`D-0`). `<top-miss>` is the most frequent `pattern:` tag from the latest weakmap (falling back to `errors/log.md`). `paideia status --banner` prints the same as a two-line session brief.
+`paideia status` reports where you are in the cycle — `paideia · <COURSE> · D-<days> · <phase> · P<top-miss> ↑` — derived from **activity on disk**, not the calendar: `setup` (no `patterns.md`) → `diag` (no graded error yet) → `drill` (quiz problems + a graded `- problem_id:` entry) → `mock` (a mock-sourced entry appeared) → `cram` (`cheatsheet/final.*` exists) → `cool` (`D-0`). `<top-miss>` is the top-ranked `pattern:` tag in the latest weakmap — the report is already priority-ordered — falling back to the most frequent `pattern:` tag in `errors/log.md`. `paideia status --banner` prints the same as a two-line session brief.
 
 ---
 

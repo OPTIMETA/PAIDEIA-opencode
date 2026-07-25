@@ -389,7 +389,7 @@ paideia weakmap                 # 상위 3개만. 새로운 건 배우지 말 �
 
 `weakmap/`는 절대 덮어쓰지 않습니다 — 매 실행이 `weakmap/weakmap_<ISO타임스탬프>.md`를 만들어, `git log weakmap/`이 "내 이해를 시간순으로 `git diff`"가 됩니다.
 
-`paideia status`는 사이클상 위치(`paideia · <COURSE> · D-<일수> · <phase> · P<top-miss> ↑`)를 **디스크 활동**(달력 아님)에서 유도해 보여줍니다: `setup`(`patterns.md` 없음) → `diag`(채점 오답 없음) → `drill`(퀴즈 문제 + 채점된 `- problem_id:` 항목) → `mock`(mock 출처 항목 등장) → `cram`(`cheatsheet/final.*` 존재) → `cool`(`D-0`). `<top-miss>`는 최신 weakmap의 최빈 `pattern:` 태그(없으면 `errors/log.md`). `paideia status --banner`는 같은 내용을 2줄 세션 브리핑으로 출력합니다.
+`paideia status`는 사이클상 위치(`paideia · <COURSE> · D-<일수> · <phase> · P<top-miss> ↑`)를 **디스크 활동**(달력 아님)에서 유도해 보여줍니다: `setup`(`patterns.md` 없음) → `diag`(채점 오답 없음) → `drill`(퀴즈 문제 + 채점된 `- problem_id:` 항목) → `mock`(mock 출처 항목 등장) → `cram`(`cheatsheet/final.*` 존재) → `cool`(`D-0`). `<top-miss>`는 최신 weakmap의 최상위 `pattern:` 태그(리포트 자체가 우선순위 순)이며, weakmap이 없으면 `errors/log.md`의 최빈 `pattern:` 태그입니다. `paideia status --banner`는 같은 내용을 2줄 세션 브리핑으로 출력합니다.
 
 ---
 
