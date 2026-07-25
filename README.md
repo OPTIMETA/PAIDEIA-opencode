@@ -427,6 +427,7 @@ PAIDEIA-opencode/
 │   │   ├── opencode.mjs            # the driver — composes argv, runs `opencode run`
 │   │   ├── prompts.mjs             # stage-spec composer (system + context + command)
 │   │   ├── render.mjs              # deterministic PDF → PNG (render + resize)
+│   │   ├── proc.mjs                # one timeout + failure-wording contract for every child
 │   │   ├── meta.mjs  workspace.mjs phase.mjs  stage.mjs  args.mjs  i18n.mjs
 │   └── commands/                   # 16 commands + status (init-course, ingest, analyze, …)
 └── assets/

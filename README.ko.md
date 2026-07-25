@@ -407,6 +407,7 @@ PAIDEIA-opencode/
 │   │   ├── opencode.mjs            # 드라이버 — argv 합성, `opencode run` 실행
 │   │   ├── prompts.mjs             # 스테이지 spec 합성기 (시스템 + 컨텍스트 + 커맨드)
 │   │   ├── render.mjs              # 결정적 PDF → PNG (렌더 + 리사이즈)
+│   │   ├── proc.mjs                # 모든 자식 프로세스의 타임아웃·실패 문구 단일 계약
 │   │   ├── meta.mjs  workspace.mjs phase.mjs  stage.mjs  args.mjs  i18n.mjs
 │   └── commands/                   # 16 커맨드 + status (init-course, ingest, analyze, …)
 └── assets/
