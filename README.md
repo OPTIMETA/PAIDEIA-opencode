@@ -370,6 +370,7 @@ Global flags: `--model <provider/model>` (pass a model to opencode), `--dry-run`
 - **Permissions** — stages pass `--dangerously-skip-permissions` so they run unattended; set `PAIDEIA_ASK_PERMISSIONS=1` to keep opencode's approval prompts.
 - **Python** — `PAIDEIA_PYTHON` overrides the interpreter used for rendering and local OCR.
 - **Colour** — `paideia status` tints the course name on a TTY; `NO_COLOR=1` (or `--plain`) suppresses every escape, for embedding the line in another prompt.
+- **Exit codes** — `0` success, `1` usage or stage error. `paideia doctor` additionally returns `2` for blocking issues and `1` for warnings, so `paideia doctor && …` gates on a fully clean install.
 - **Workspace config** — `init-course` writes an `opencode.json` with `instructions: ["AGENTS.md"]` (ambient course context) and `permission` set to allow, plus a course-scoped `.gitignore`.
 
 ### Ingest pipeline: vision for every PDF

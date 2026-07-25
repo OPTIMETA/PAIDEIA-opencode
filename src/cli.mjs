@@ -64,9 +64,12 @@ REVIEW
   alt [paste|radar.md]   Import an OPTIMETA Exam Radar export (lecture emphasis)
 
 GLOBAL FLAGS
-  --model <p/m>          Pass a provider/model to opencode for this run
-  --dry-run              Compose the spec + show the opencode command; run nothing
-  --version, --help
+  --model, -m <p/m>      Pass a provider/model to opencode for this run
+  --dry-run, -n          Compose the spec + show the opencode command; run nothing
+  --version -v, --help -h
+
+EXIT CODES
+  0 success · 1 usage or stage error · doctor also uses 2 (blocking issues)
 
 The harness owns the study logic and drives opencode (one run per stage). Model
 selection and auth live in opencode — run \`opencode auth login\` once, or see
