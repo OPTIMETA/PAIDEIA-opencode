@@ -5,7 +5,7 @@ import { join } from "node:path";
 import { harnessRoot } from "./core/workspace.mjs";
 
 // command name (and aliases) → module file under ./commands/
-const COMMANDS = {
+export const COMMANDS = {
   "init-course": "init-course", init: "init-course",
   ingest: "ingest",
   analyze: "analyze",
@@ -74,25 +74,33 @@ selection and auth live in opencode — run \`opencode auth login\` once, or see
 
 function extractGlobals(argv) {
   const rest = [];
-  let dryRun = false, model, help = false, ver = false;
+  let dryRun = false, model, help = false, ver = false, error;
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--dry-run" || a === "-n") dryRun = true;
     else if (a === "--help" || a === "-h") help = true;
     else if (a === "--version" || a === "-v") ver = true;
-    else if (a === "--model" || a === "-m") model = argv[++i];
-    else if (a.startsWith("--model=")) model = a.slice("--model=".length);
-    else rest.push(a);
+    else if (a === "--model" || a === "-m") {
+      // A trailing `--model` used to bind undefined and fall back to the env
+      // var, silently running against a model the user did not ask for.
+      if (i + 1 >= argv.length) error = `${a} needs a value, e.g. --model anthropic/claude-sonnet-4-5`;
+      else model = argv[++i];
+    } else if (a.startsWith("--model=")) {
+      model = a.slice("--model=".length);
+      if (!model) error = "--model= needs a value, e.g. --model=anthropic/claude-sonnet-4-5";
+    } else rest.push(a);
   }
-  return { dryRun, model, help, version: ver, rest };
+  return { dryRun, model, help, version: ver, rest, error };
 }
 
 export async function main(argv) {
-  const { dryRun, model, help, version: ver, rest } = extractGlobals(argv);
+  const { dryRun, model, help, version: ver, rest, error } = extractGlobals(argv);
   const command = rest[0];
 
   if (ver) { console.log(`paideia ${version()}`); return 0; }
-  if (help || !command) { console.log(HELP); return command ? 0 : (help ? 0 : 1); }
+  if (help) { console.log(HELP); return 0; }
+  if (error) { console.error(`paideia: ${error}`); return 1; }
+  if (!command) { console.error(HELP); return 1; } // usage error → stderr, non-zero
 
   const file = COMMANDS[command];
   if (!file) {
