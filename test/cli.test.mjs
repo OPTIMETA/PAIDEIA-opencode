@@ -142,6 +142,33 @@ test("ingest asks for materials when the folders are empty", () => {
   assert.match(r.stderr, /materials\//);
 });
 
+test("a markdown-only ingest converts without needing opencode", () => {
+  const root = tempCourse();
+  put(root, "materials/lectures/L1.md", "# Lecture 1\n\n$$E = mc^2$$\n");
+  // PATH without opencode: the .md pass-through is deterministic and must not
+  // be gated on a model runtime it never uses.
+  const r = paideia(["ingest"], root, { PATH: "/nonexistent" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.ok(!/opencode is not installed/.test(r.stderr), r.stderr);
+  const out = readFileSync(join(root, "converted", "lectures", "L1.md"), "utf8");
+  assert.match(out, /method: passthrough/);
+  assert.match(out, /E = mc\^2/);
+
+  // Second run is idempotent: already converted, nothing to do.
+  const again = paideia(["ingest"], root, { PATH: "/nonexistent" });
+  assert.equal(again.status, 0);
+  assert.match(again.stdout, /\| lectures \| 0 \| 1 \| 0 \|/);
+});
+
+test("ingest skips a PDF whose stem is already claimed by a markdown file", () => {
+  const root = tempCourse();
+  put(root, "materials/homework/HW01.md", "# HW1");
+  put(root, "materials/homework/HW01.pdf", "%PDF-1.4");
+  const r = paideia(["ingest"], root, { PATH: "/nonexistent" });
+  assert.equal(r.status, 0, r.stderr);
+  assert.match(r.stderr, /a same-named \.md already claims HW01\.md/);
+});
+
 test("every routed command dispatches to a module that loads", () => {
   const root = tempCourse();
   put(root, "course-index/patterns.md", "# patterns");
