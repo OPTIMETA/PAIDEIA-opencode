@@ -35,6 +35,22 @@ export function tempCourse(meta = {}) {
   return root;
 }
 
+/**
+ * A course with every prerequisite satisfied, so any stage can be composed:
+ * an index, converted material, an answer, a weakmap and a radar export.
+ */
+export function fullCourse(meta = {}) {
+  const root = tempCourse(meta);
+  put(root, "course-index/patterns.md", "# patterns\n\n## P1 — residue at a simple pole\n");
+  put(root, "course-index/coverage.md", "# coverage\n");
+  put(root, "converted/lectures/L1.md", "# Lecture 1\n");
+  put(root, "converted/solutions/HW1_sol.md", "# HW1 solutions\n");
+  put(root, "answers/hw01.md", "# my answer\n");
+  put(root, "weakmap/weakmap_2030-01-01_0900.md", "## One-line verdict\n\npattern: P1 keeps biting.\n");
+  put(root, "materials/radar.md", "<!-- exam-radar:v1 -->\nOrthogonality 88\n");
+  return root;
+}
+
 /** Write `body` to `<root>/<rel>`, creating parent directories. */
 export function put(root, rel, body = "x") {
   const p = join(root, rel);
