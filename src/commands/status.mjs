@@ -12,11 +12,16 @@ const NEON = [
   [191, 0, 255], [255, 102, 0], [176, 255, 0], [255, 49, 49], [125, 249, 255],
 ];
 
+// Escapes are written as \u001b, never as a raw ESC byte: an invisible control
+// character in source survives no round trip through an editor or a patch.
+const ESC = "\u001b";
+const RESET = `${ESC}[0m`;
+
 function hashColor(seed) {
   let h = 0;
   for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
   const [r, g, b] = NEON[h % NEON.length];
-  return `[38;2;${r};${g};${b}m`;
+  return `${ESC}[38;2;${r};${g};${b}m`;
 }
 
 function truncate(s, n = 28) {
@@ -77,7 +82,9 @@ export async function run(args, _ctx) {
   parts.push(phase);
   if (miss) parts.push(`${miss} ↑`);
   const line = parts.join(" · ");
-  const useColor = process.stdout.isTTY && !flags.plain;
-  console.log(useColor ? `${hashColor(name)}${line}[0m` : line);
+  // NO_COLOR is the cross-tool convention for "never emit escapes"; a status
+  // line embedded in another program's prompt is exactly where it matters.
+  const useColor = process.stdout.isTTY && !flags.plain && !process.env.NO_COLOR;
+  console.log(useColor ? `${hashColor(name)}${line}${RESET}` : line);
   return 0;
 }
