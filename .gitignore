@@ -8,3 +8,25 @@ __pycache__/
 .paideia/tmp/
 # Local experiments
 /sandbox/
+
+# ── A course workspace living in this checkout ────────────────────────────────
+# Running `paideia init-course` here (the fastest way to exercise the harness)
+# turns the repo root into a course folder. Those are the student's own
+# materials — lecture PDFs, homework scans, an error log — and belong to the
+# course, never to the package. Keep them out of the repo by default; a file
+# genuinely meant for the project can still be added with `git add -f`.
+/.course-meta
+/AGENTS.md
+/opencode.json
+/materials/
+/converted/
+/answers/
+/course-index/
+/errors/
+/quizzes/
+/mock/
+/twins/
+/chain/
+/derivations/
+/cheatsheet/
+/weakmap/
