@@ -122,6 +122,64 @@ test("commands that need an argument say so", () => {
   }
 });
 
+test("a valueless --strategy is an error, not a silently different command", () => {
+  const root = tempCourse();
+  put(root, "course-index/patterns.md", "# patterns");
+  for (const cmd of ["twin", "blind"]) {
+    for (const arg of ["--strategy", "--strategy="]) {
+      const r = paideia([cmd, "HW3-P2", arg, "--dry-run"], root);
+      assert.equal(r.status, 1, `${cmd} ${arg} should not fall through`);
+      assert.match(r.stderr, /--strategy needs your strategy/);
+    }
+  }
+});
+
+test("a real --strategy routes to the check stage", () => {
+  const root = tempCourse();
+  put(root, "course-index/patterns.md", "# patterns");
+  const r = paideia(["twin", "HW3-P2", "--strategy", "apply P3, hold omega fixed", "--dry-run"], root);
+  assert.equal(r.status, 0, r.stderr);
+  const spec = /spec: (.+)$/m.exec(r.stdout);
+  const body = readFileSync(spec[1].trim(), "utf8");
+  assert.match(body, /twin_check stage/);
+  assert.match(body, /apply P3, hold omega fixed/);
+});
+
+test("quiz weakmap fails fast when no weakmap report exists", () => {
+  const root = tempCourse();
+  put(root, "course-index/patterns.md", "# patterns");
+  // The harness knows there is nothing to target; it must not spend a model
+  // run having the agent relay that.
+  const r = paideia(["quiz", "weakmap", "--dry-run"], root);
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, /No weakmap report yet/);
+  assert.ok(!/would run/.test(r.stdout), "no stage should have been composed");
+
+  put(root, "weakmap/weakmap_2026-06-01_0900.md", "pattern: P3");
+  const ok = paideia(["quiz", "weakmap", "--dry-run"], root);
+  assert.equal(ok.status, 0, ok.stderr);
+});
+
+test("alt fails fast without an exam-radar export", () => {
+  const root = tempCourse();
+  const r = paideia(["alt", "--dry-run"], root);
+  assert.equal(r.status, 1);
+  assert.match(r.stderr, /No exam-radar:v1 export found/);
+
+  put(root, "materials/radar.md", "<!-- exam-radar:v1 -->\nOrthogonality 88");
+  const ok = paideia(["alt", "--dry-run"], root);
+  assert.equal(ok.status, 0, ok.stderr);
+  const spec = /spec: (.+)$/m.exec(ok.stdout);
+  assert.match(readFileSync(spec[1].trim(), "utf8"), /from materials\/radar\.md/);
+});
+
+test("doctor checks the node version against engines", () => {
+  const r = paideia(["doctor"], tempDir());
+  assert.match(r.stdout, /checks passed/);
+  // This process satisfies engines, so node must not appear among the problems.
+  assert.ok(!/✗ node/.test(r.stdout), "node should pass on a supported runtime");
+});
+
 test("grade rejects an unknown OCR engine instead of falling back silently", () => {
   const root = tempCourse();
   put(root, "answers/hw01.md", "# answer");
