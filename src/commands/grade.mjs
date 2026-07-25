@@ -10,11 +10,17 @@ import {
 } from "../core/workspace.mjs";
 import { courseVars, buildSpec } from "../core/prompts.mjs";
 import { runStage, opencodeAvailable } from "../core/opencode.mjs";
-import { renderPdfPages, cleanup, pythonBin } from "../core/render.mjs";
+import { renderPdfPages, cleanup, pythonBin, describeSpawnFailure } from "../core/render.mjs";
 import { parseArgs } from "../core/args.mjs";
 import { t } from "../core/i18n.mjs";
 
 const ENGINE_ALIAS = { claude: "vision", agent: "vision", vision: "vision", ollama: "ollama", tesseract: "tesseract" };
+
+/** True iff `p` is inside `dir` (and not merely prefixed by its name). */
+function isInside(dir, p) {
+  const rel = relative(dir, p);
+  return rel !== "" && !rel.startsWith("..") && !isAbsolute(rel);
+}
 
 function resolveTarget(root, positional) {
   if (positional) {
@@ -41,7 +47,9 @@ function runVisionOcr(root, pdf, out, engine) {
   if (!py) throw new Error("python3 not found — required for the ollama/tesseract OCR engines.");
   const r = spawnSync(py, [assetPath("scripts", "vision_ocr.py"), `--engine=${engine}`, pdf, out],
     { cwd: root, stdio: "inherit" });
-  if (r.status !== 0) throw new Error(`vision_ocr.py exited ${r.status}`);
+  // stdio is inherited, so r.stderr is null — describeSpawnFailure still turns
+  // a spawn error or a kill signal into something better than "exited null".
+  if (r.status !== 0) throw new Error(describeSpawnFailure(r, "vision_ocr.py"));
 }
 
 export async function run(args, ctx) {
@@ -58,7 +66,15 @@ export async function run(args, ctx) {
     return 1;
   }
 
-  const engine = ENGINE_ALIAS[String(flags.ocr || meta.OCR_ENGINE || "vision").toLowerCase()] || "vision";
+  // A typo'd engine used to fall back to vision silently — the user asks for a
+  // local, nothing-leaves-the-machine transcription and gets a remote one.
+  const requested = String(flags.ocr || meta.OCR_ENGINE || "vision").toLowerCase();
+  const engine = ENGINE_ALIAS[requested];
+  if (!engine) {
+    console.error(`paideia grade: unknown OCR engine '${requested}'. `
+      + `Use one of: ${[...new Set(Object.keys(ENGINE_ALIAS))].join(", ")}.`);
+    return 1;
+  }
   const ext = extname(target).toLowerCase();
   const stem = basename(target, ext);
   const convOut = join(root, "answers", "converted", `${stem}.md`);
@@ -127,7 +143,10 @@ export async function run(args, ctx) {
   }
 
   // ── Post: archive the graded PDF, clean scratch ────────────────────────────
-  if (res.code === 0 && ext === ".pdf" && target.startsWith(join(root, "answers"))) {
+  // Containment, not string prefix: `answers-old/x.pdf` starts with the same
+  // characters as `answers/` and would otherwise get archived out from under a
+  // directory the harness does not own.
+  if (res.code === 0 && ext === ".pdf" && isInside(join(root, "answers"), target)) {
     try {
       const archive = join(root, "answers", "_archive");
       mkdirSync(archive, { recursive: true });
