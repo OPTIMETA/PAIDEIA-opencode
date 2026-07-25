@@ -20,6 +20,18 @@ const STRINGS = {
     en: "converted/ is empty. Run `paideia ingest` first to convert your PDFs.",
     ko: "converted/가 비어 있습니다. 먼저 `paideia ingest`로 PDF를 변환하세요.",
   },
+  need_weakmap: {
+    en: "No weakmap report yet. Run `paideia weakmap` first, then `paideia quiz weakmap`.",
+    ko: "weakmap 리포트가 아직 없습니다. 먼저 `paideia weakmap`을 실행한 뒤 `paideia quiz weakmap`을 쓰세요.",
+  },
+  need_radar: {
+    en: "No exam-radar:v1 export found. Paste it after `paideia alt`, or save it as materials/radar.md.",
+    ko: "exam-radar:v1 익스포트를 찾지 못했습니다. `paideia alt` 뒤에 붙여넣거나 materials/radar.md로 저장하세요.",
+  },
+  need_strategy: {
+    en: "--strategy needs your strategy in 3-5 lines, e.g. --strategy \"apply P3, hold ω fixed, expect a closed form\".",
+    ko: "--strategy 에는 3~5줄 전략이 필요합니다. 예: --strategy \"P3 적용, ω 고정, 닫힌 형태 기대\".",
+  },
   running_stage: {
     en: "→ driving opencode: {stage}",
     ko: "→ opencode 구동 중: {stage}",
