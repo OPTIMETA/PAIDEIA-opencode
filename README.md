@@ -2,27 +2,19 @@
 
 <p align="center">
   <strong>Your course. Your patterns. Your errors. Your cheatsheet.</strong><br>
-  <em>An exam-prep harness that turns your own materials into a permanent, editable, per-course study graph — every artifact shaped by you, not by a generic syllabus. The opencode edition: a standalone harness that drives <a href="https://opencode.ai">opencode</a>, not an editor plugin.</em>
+  <em>An opencode command-line harness that turns your own materials into a permanent, editable, per-course study graph — every artifact shaped by you, not by a generic syllabus.</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/OPTIMETA/PAIDEIA-Alt"><img height="30" src="https://img.shields.io/badge/Exam_Radar-OPTIMETA_Alt_plugin-333333?style=for-the-badge&labelColor=000000&color=333333" alt="Exam Radar — OPTIMETA Alt plugin"></a>
-</p>
-
-<p align="center">
-  <sub><em>Capture lectures with <a href="https://github.com/OPTIMETA/PAIDEIA-Alt"><strong>Exam Radar</strong></a> — OPTIMETA's Alt plugin — and study them with Paideia. Pipe a roadmap straight in with <code>paideia alt</code>.</em></sub>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/github/license/OPTIMETA/PAIDEIA-opencode?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="License">
+  <img src="https://img.shields.io/badge/license-MIT-333333?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="License">
   <img src="https://img.shields.io/github/stars/OPTIMETA/PAIDEIA-opencode?style=flat-square&logo=github&logoColor=white&labelColor=000000&color=333333&cacheSeconds=3600" alt="GitHub stars">
   <img src="https://img.shields.io/github/last-commit/OPTIMETA/PAIDEIA-opencode?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="Last commit">
   <img src="https://img.shields.io/github/languages/top/OPTIMETA/PAIDEIA-opencode?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="Top language">
   &nbsp;
   <img src="https://img.shields.io/badge/opencode-000000?style=flat-square&logo=opencode&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="opencode">
   <img src="https://img.shields.io/badge/Harness-000000?style=flat-square&labelColor=000000&color=000000&cacheSeconds=3600" alt="Harness">
-  <img src="https://img.shields.io/badge/Node.js-000000?style=flat-square&logo=nodedotjs&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Node.js">
   <img src="https://img.shields.io/badge/Markdown-000000?style=flat-square&logo=markdown&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Markdown">
+  <img src="https://img.shields.io/badge/Node.js-000000?style=flat-square&logo=nodedotjs&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Node.js">
   <img src="https://img.shields.io/badge/Python-000000?style=flat-square&logo=python&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Python">
   <img src="https://img.shields.io/badge/Ollama-000000?style=flat-square&logo=ollama&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Ollama">
   <img src="https://img.shields.io/badge/Qwen3--VL-000000?style=flat-square&labelColor=000000&color=000000&cacheSeconds=3600" alt="Qwen3-VL">
@@ -33,20 +25,35 @@
 </p>
 
 <p align="center">
-  <a href="./README.ko.md">한국어 README</a>
-  &nbsp;·&nbsp;
-  <a href="https://github.com/OPTIMETA/PAIDEIA"><strong>PAIDEIA</strong> — original Claude Code edition</a>
-  &nbsp;·&nbsp;
-  <a href="https://github.com/OPTIMETA/PAIDEIA-codex"><strong>PAIDEIA-codex</strong> — OpenAI Codex CLI edition</a>
+  <a href="https://news.hada.io/topic?id=29865"><img height="34" src="https://img.shields.io/badge/GeekNews-%231%20on%2026.05.26-333333?style=for-the-badge&labelColor=000000&color=333333" alt="GeekNews #1 on 26.05.26"></a><a href="https://news.hada.io/weekly/202622"><img height="34" src="https://img.shields.io/badge/GeekNews%20Weekly-%23360-333333?style=for-the-badge&labelColor=000000&color=333333" alt="GeekNews Weekly #360"></a><br>
+  <a href="https://www.producthunt.com/products/paideia"><img height="34" src="https://img.shields.io/badge/Product%20Hunt-Launched-333333?style=for-the-badge&logo=producthunt&logoColor=white&labelColor=000000&color=333333" alt="Product Hunt launch"></a><a href="https://www.taewoopark.com/projects/paideia"><img height="34" src="https://img.shields.io/badge/Interactive%20Demo-Live-333333?style=for-the-badge&labelColor=000000&color=333333" alt="Interactive demo at taewoopark.com"></a>
+  <br><sub>Original PAIDEIA coverage and interactive demo.</sub>
 </p>
 
-> **Using opencode instead of Claude Code or Codex?** Same tool, same on-disk layout, same license — re-built as a **harness** that drives opencode. The original PAIDEIA is a Claude Code *plugin* (commands + skills the editor loads); this edition is a self-contained program that sits above opencode and drives it, one `opencode run` per stage. Pick whichever agentic runner you already pay for; the study graph it builds is identical and portable across all three.
+<p align="center">
+  <a href="./README.ko.md">한국어 README</a>
+  &nbsp;·&nbsp;
+  <a href="https://taewoopark.com"><strong>taewoopark.com</strong> — author site</a>
+</p>
 
-> **Security notice.** PAIDEIA for opencode installs as a normal npm/Node CLI (`paideia`) and never asks you to download a `.zip`, run an `.exe`, or use any installer. Any other repository using the PAIDEIA name is not affiliated with this project unless it is explicitly linked from this README.
+<p align="center"><sub><strong>The PAIDEIA family — one study engine, every agentic runtime</strong></sub></p>
+
+| Platform | Repository | What it is |
+|:--:|:--|:--|
+| <a href="https://github.com/OPTIMETA/PAIDEIA"><img src="https://cdn.simpleicons.org/claude/D97757" height="24" alt="Claude"></a> | **[PAIDEIA](https://github.com/OPTIMETA/PAIDEIA)** | The original — a **Claude Code** plugin. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-codex"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/ChatGPT-Logo.svg" height="24" alt="OpenAI Codex"></a> | **[PAIDEIA-codex](https://github.com/OPTIMETA/PAIDEIA-codex)** | **OpenAI Codex** skills + bundled MCP server. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-opencode"><img src="https://cdn.simpleicons.org/opencode/888888" height="24" alt="opencode"></a> | **[PAIDEIA-opencode](https://github.com/OPTIMETA/PAIDEIA-opencode)** | Command-line harness driving **opencode**. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-Hermes"><img src="https://github.com/hermes-agent.png" height="24" alt="hermes-agent"></a> | **[PAIDEIA-Hermes](https://github.com/OPTIMETA/PAIDEIA-Hermes)** | **Hermes Agent** plugin: CLI commands + gateway routing. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-mcp"><img src="https://cdn.simpleicons.org/modelcontextprotocol/888888" height="24" alt="MCP"></a> | **[PAIDEIA-mcp](https://github.com/OPTIMETA/PAIDEIA-mcp)** | Standalone local **MCP** server — drive PAIDEIA from Alt local models. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-Alt"><img src="https://github.com/altalt-org.png" height="24" alt="Alt · altalt.org"></a> | **[PAIDEIA-Alt](https://github.com/OPTIMETA/PAIDEIA-Alt)** | **Exam Radar** — the Alt lecture-capture plugin ([altalt.org](https://altalt.org)). |
 
 <p align="center">
   <em>Generic study tools teach you the average syllabus. Paideia teaches you <strong>your</strong> syllabus —<br>
   from your professor's notes, your HW emphases, your handwriting, your errors. Every artifact is a markdown file you can edit.</em>
+</p>
+
+<p align="center">
+  <img src="./docs/media/terminal-help.png" alt="opencode PAIDEIA running on macOS" width="100%">
 </p>
 
 ---
@@ -63,95 +70,88 @@ This harness implements that cycle for the specific, bounded problem of **exam p
      └────────────────── feedback loop ───────────────────────┘
 ```
 
-Every stage produces a markdown artifact that lives in your course folder forever. Nothing is ephemeral. Nothing is hidden behind an API. Nothing stops working when the next funding winter hits.
-
----
-
-## Harness, not a plugin
-
-The original PAIDEIA is a *plugin* — slash commands and skills an editor (Claude Code) loads and runs inside its own agent loop. This edition is a **harness**: a self-contained program that sits *above* opencode and drives it.
-
-```
-┌──────────────────────────────────────────────────────────────┐
-│  paideia  (the harness — owns ALL the exam-prep logic)        │
-│                                                              │
-│   command  ─▶ deterministic prep        ─▶ compose a stage   │
-│   parsing      (render PDFs, run OCR,       SPEC (system +    │
-│                discover files, git,         course context + │
-│                manage the workspace)        instructions)    │
-│                          │                        │          │
-│                          ▼                        ▼          │
-│                  python / poppler        opencode run --dir … │
-│                  / ollama / tesseract    -f <spec>           │
-└──────────────────────────────────────────────┬───────────────┘
-                                                ▼
-                          opencode  (the execution engine)
-                    model · tools (Read/Write/Bash/Task) · auth
-```
-
-- **The harness owns the study logic.** Every command, prompt, and rule lives in this repo. opencode needs no PAIDEIA plugin, agent, or skill installed.
-- **opencode is the substrate.** It provides the model, the file/shell/subagent tools, and authentication. Each PAIDEIA stage is one `opencode run`.
-- **Deterministic work stays in the harness** (PDF rasterization, local OCR, the directory skeleton, idempotence, git, PDF archiving, phase detection) — no token cost, no guesswork.
-- **The model does the model-shaped work** (vision transcription, pattern extraction, problem generation, strategy grading) via a fully-composed specification.
+The study stages save Markdown artifacts in your course folder. You can keep reading, editing, and versioning those files independently of the agent. Generating new artifacts still requires the runtime, tools, and model used by the chosen stage.
 
 ---
 
 ## What generic study tools can't do
 
-Most study tools can't personalize to *your* course, *your* professor, or *your* mistakes — because the product they sell is a generic curriculum.
+Paideia starts with *your* course, *your* professor's assignments, and *your* mistakes. The input is the folder you bring: lecture notes, textbook chapters, homework, solutions, and scanned attempts.
 
-- **Coursera, edX, Khan Academy** — fixed curriculum; no idea what your professor actually emphasizes.
-- **Quizlet, Anki, Brainscape** — you manually curate every card; nothing derives patterns from your own solution manuals.
-- **Chegg, Course Hero** — generic solution manuals; not organized around your course's recurring idioms.
-- **ChatGPT Study Mode, Gemini "Deep Study", NotebookLM** — no persistent per-course state. Every new session starts cold, and last week's mistakes don't shape this week's drill unless you re-upload and re-explain.
+Generic curricula and manually curated flashcards can be useful companions. Paideia adds a specific workflow: extract recurring moves from your solutions, rank practice by homework coverage, and feed recorded errors into the next drill. The table describes that workflow, rather than the features or subscription terms of every learning service.
 
-None of them *form* understanding around the specific material in front of you. Paideia does the opposite: every artifact is derived from *your* folder — lecture notes, textbook chapter, HW, solutions, handwritten attempts — and accumulates permanently in plain markdown you can edit.
-
-| Axis | Paideia | Typical edu-SaaS / LLM chat |
+| Axis | Paideia | A generic course or an unstructured chat |
 |-----|---------|------------------------------|
-| Solution patterns (`P1..Pk`) | Extracted from *your course's* own solutions, citing your own files | Generic textbook list, or none |
-| Drill priority | Weighted by *your professor's* HW emphasis (HW density = exam tier) | Fixed curriculum, or your own guesswork |
-| Cheatsheet | Built from *your* `errors/log.md` — whatever you actually got wrong | Boilerplate from the syllabus |
-| Per-course state across sessions | Permanent markdown + YAML, grows as you work | Conversation resets; paid tier for history |
-| Editing an artifact you disagree with | Open the `.md` in any editor, save | Read-only UI |
-| Version history of your own understanding | `git log` / `git diff` any artifact | Not surfaced |
-| Where the artifacts live | Your disk, as text | Remote DB, exportable only with paid tier |
+| Solution patterns (`P1..Pk`) | Extracted from your course's solutions, with source citations | Requires course-specific material and instructions |
+| Drill priority | Weighted by your professor's HW emphasis | Must be selected and maintained separately |
+| Cheatsheet | Errors shape the traps section; the course index supplies references | Must be assembled and revised separately |
+| Per-course state across sessions | Markdown + metadata files in the course folder | Depends on the service and how context is supplied |
+| Editing an artifact you disagree with | Open the `.md` in any editor and save | Depends on the tool's editing and export support |
+| Carrying prep into another semester | Copy the course folder and revise the changed material | Requires moving the relevant material and history |
+| Version history of your understanding | `git log` / `git diff`, when you commit the files | Depends on the tool's versioning support |
+| Where the artifacts live | Your disk, as text | Depends on the service |
 
-The harness uses opencode (which talks to a paid model) to do the heavy lifting, but everything it produces lives on your disk as plain markdown. If you switch model runners or pause your subscription, the course-index, patterns, error log, weakmaps, and cheatsheets are all still yours to open, read, edit, and diff. The scaffold is the harness; the study graph is yours.
+The runner does the model work; the study graph remains yours to open, read, edit, and diff. Changing providers or pausing a subscription does not remove the files already produced.
 
-By default, OCR goes through the opencode agent's native vision. If you'd rather the handwritten PDFs never leave the machine, `ollama pull qwen3-vl:8b` is a one-time ~6 GB download that flips every subsequent OCR pass to local Qwen3-VL inference.
+Default answer OCR is `vision`: page images are read through the runner's vision path. For local answer OCR, install Ollama and `qwen3-vl:8b`, then explicitly select `OCR_ENGINE: ollama` in `.course-meta` or pass `--ocr=ollama` to grade. Downloading the model alone does not change the engine. `tesseract` is the other local option. Local OCR keeps that transcription step local; subsequent analysis and grading still use the configured model and may send it the transcribed text.
 
 ---
 
 ## The load-bearing principle: HW density = exam probability
 
-Most "study smart" advice tells you to hunt your blind spots. That is **backwards**. The professor has *already told you* where the exam points live — by assigning homework. Sections with heavy HW coverage are 🔥🔥 Exam-primary. Sections with zero HW are ⚪ Low-risk, not "hidden traps". The professor's omission is the strongest possible signal that the topic is off the exam.
+Homework is Paideia's primary signal for allocating exam-prep time. Sections with more assigned problems get more practice; sections without homework remain reference material by default. **These are study-priority tiers, not measured probabilities or a guarantee of what the professor will test.**
 
-Paideia's ranking is explicit about this, and every drill command honors it by default:
-
-| Tier | HW count on section | Treatment | Share of mock-exam points |
-|------|---------------------|-----------|---------------------------|
+| Tier | HW count on section | Treatment | Target share of mock-exam points |
+|------|---------------------|-----------|---------------------------------|
 | 🔥🔥 Exam-primary | 3+ | Drill hardest | ≥70% |
 | 🔥 Exam-likely | 2 | Drill next | ~25% |
 | 🟡 Exam-possible | 1 | Warm-pass review | ≤5% |
-| ⚪ Low-risk | 0 | Reference only | 0 |
+| ⚪ Low-risk | 0 | Reference only | 0 by default |
 
-`paideia quiz all`, `paideia mock`, `paideia hwmap hot` all weight output by this tiering. If you insist on drilling a ⚪ section, the harness complies once and warns you that exam probability is low — your limited time is worth more than an imagined gotcha.
+`paideia quiz all`, `paideia mock 90`, and `paideia hwmap hot` use this ranking. These allocations are instructions to the generating agent; inspect the resulting mock before relying on its exact distribution. Explicit requests and imported Exam Radar signals can inform what you choose to review.
 
 ---
 
 ## The formation cycle, stage by stage
 
+<p align="center"><sub><em>Actual macOS CLI sessions, viewed through a local terminal viewer. The course uses small synthetic demonstration materials.</em> · <a href="docs/media/README.md">Capture notes</a></sub></p>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-status.png" alt="paideia status">
+      <br><sub><b><code>paideia status</code></b> — course · D-N · phase</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-help.png" alt="paideia --help">
+      <br><sub><b><code>paideia --help</code></b> — command reference</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-ingest.png" alt="paideia ingest">
+      <br><sub><b><code>paideia ingest</code></b> — Markdown ingest</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-doctor.png" alt="paideia doctor">
+      <br><sub><b><code>paideia doctor</code></b> — dependency check</sub>
+    </td>
+  </tr>
+</table>
+
+Run **`paideia <command>` in your shell**. This edition is a standalone Node.js harness: it prepares files and a stage specification, then starts `opencode run` for the model work. It supplies 17 commands including `status`; `init` aliases `init-course`.
+
+Setup, diagnostics, status, and Markdown copy-through run locally. Model stages are separate CLI invocations. For a two-step blind/twin exercise, submit your approach with `paideia blind <id> --strategy "…"` or `paideia twin <id> --strategy "…"`; there is no persistent PAIDEIA chat awaiting the reply. Read generated math in Obsidian.
+
 | Stage | What it does | Commands | Produces |
 |-------|-------------|----------|----------|
 | **Encounter** | Read the professor's signal | `paideia ingest` | `converted/**/*.md` — every lecture, textbook chapter, HW, solution, as clean markdown |
 | **Structure** | Extract the grammar of the course | `paideia analyze` | `course-index/{summary,patterns,coverage}.md` — topic tree, recurring solution patterns (P1..Pk), HW-density exam-tier ranking |
-| **Practice** | Active recall weighted by what the professor actually tests | `paideia quiz`, `paideia twin`, `paideia blind`, `paideia chain`, `paideia mock` | `quizzes/`, `twins/`, `chain/`, `mock/` — problems you solve on paper |
+| **Practice** | Active recall weighted by assigned homework | `paideia quiz`, `paideia twin`, `paideia blind`, `paideia chain`, `paideia mock` | `quizzes/`, `twins/`, `chain/`, `mock/` — problems you solve on paper |
 | **Reflection** | Your hand-written work becomes a grade | `paideia grade` | `answers/converted/<name>.md` + `errors/log.md` — OCR via agent vision (default), Ollama/Qwen3-VL, or Tesseract; then strategy-based grading |
 | **Diagnosis** | Errors compressed into a priority-ranked weakness report | `paideia weakmap` | `weakmap/weakmap_<ts>.md` — append-only history |
 | **Distillation** | One page, error-driven, printable | `paideia cheatsheet`, `paideia derive`, `paideia pattern` | `cheatsheet/final.md`, `derivations/<slug>.md` — reference only what you actually need |
 
-Supporting: `paideia hwmap` surfaces HW-density exam-probability, `paideia status` shows where you are in the cycle, and `paideia init-course` bootstraps a fresh course folder.
+Supporting: `paideia hwmap` shows homework-based study priorities, `paideia status` shows where you are in the cycle, and `paideia init-course` bootstraps a fresh course folder.
 
 ---
 
@@ -163,7 +163,7 @@ Supporting: `paideia hwmap` surfaces HW-density exam-probability, `paideia statu
 
 - **Node ≥ 18.17** (runs the harness — plain ESM, zero runtime dependencies)
 - **[opencode](https://opencode.ai)** (the execution engine) — `npm i -g opencode-ai`, then `opencode auth login` once
-- **Python 3.9+** with `pdf2image` + `pillow` (PDF rendering & local OCR); add `reportlab` for `cheatsheet --pdf`
+- **Python 3.9+** with `pdf2image` + `pillow` for rendering. In the Python environment used by PAIDEIA, run `python3 -m pip install pdf2image pillow`; add `pytesseract` for local Tesseract/fallback and `reportlab` for the fallback PDF exporter. Use `PAIDEIA_PYTHON` to select a virtual environment’s interpreter.
 - A Unix-style shell (`bash` / `zsh`). On Windows use [WSL2](https://learn.microsoft.com/windows/wsl/install).
 - **macOS**: `brew install poppler tesseract tesseract-lang`
 - **Linux (Debian/Ubuntu)**: `apt-get install poppler-utils tesseract-ocr tesseract-ocr-kor`
@@ -172,7 +172,7 @@ Supporting: `paideia hwmap` surfaces HW-density exam-probability, `paideia statu
 
 - `ollama` + the `qwen3-vl:8b` model (~6 GB). `brew install ollama && ollama pull qwen3-vl:8b`.
 
-If you don't install Ollama, Paideia's default OCR engine is the opencode agent's own vision — nothing extra to install.
+The default answer OCR is `vision`; it requires the rendering dependencies above and a working vision-capable opencode model. Selecting `ollama` requires a running local Ollama server. Downloading the model alone does not switch the engine.
 
 ### Install the harness
 
@@ -194,18 +194,19 @@ paideia init-course
 ```
 
 This interactively:
+
 1. Asks which interface language you want for this course — `en` (default) or `ko`. All subsequent prompts, drill instructions, and generated MD narrative follow that choice. Structural tokens (file paths, command names, pattern IDs `P1, P2, …`, YAML keys, tier markers) stay in English regardless.
-2. Asks which OCR engine you want as default: `vision` (agent vision, no install), `ollama` (local Qwen3-VL), or `tesseract`.
+2. Asks which OCR engine you want as default: `vision` (agent vision), `ollama` (local Qwen3-VL), or `tesseract`.
 3. Asks for `COURSE_NAME`, `EXAM_DATE`, `EXAM_TYPE`, `USER_WEAK_ZONES`.
 4. Creates the directory skeleton (`materials/`, `converted/`, `course-index/`, `quizzes/`, `mock/`, `twins/`, `chain/`, `derivations/`, `cheatsheet/`, `weakmap/`, `answers/converted/`, `errors/`).
 5. Writes `.course-meta` (carries `INTERFACE_LANG` + `OCR_ENGINE`, read by every command and by `vision_ocr.py`), an `AGENTS.md` course-context file, and an `opencode.json` whose `instructions` key loads `AGENTS.md` into every run in the folder.
-6. `git init` so your prep is versioned from the first keystroke.
+6. Adds course ignore rules. If there is no `.git` in the course folder, runs `git init`, stages files, and attempts an initial commit; existing repositories are not auto-committed. Commit later changes yourself.
 
 Override the OCR engine for a single grade call anytime: `paideia grade --ocr=vision path/to/answer.pdf`.
 
 ### Existing course folders (migration note)
 
-A course created without an `INTERFACE_LANG` line in `.course-meta` is treated as `en`. To keep Korean output, add one line — `INTERFACE_LANG: ko` — and that's the whole migration.
+A course without `INTERFACE_LANG` is treated as `en`; add `INTERFACE_LANG: ko` for Korean narrative. When moving from another edition, also review `AGENTS.md`, `opencode.json`, and the OCR engine: Codex’s `codex-native` corresponds to `vision`, and `qwen3-vl` to `ollama`. `init-course` leaves an existing `.course-meta` course alone unless `--force` is set. Forced bootstrap rewrites metadata, backs up a changed `AGENTS.md` to `.bak`, and preserves an existing `opencode.json`. Keep personal history and edited artifacts.
 
 ---
 
@@ -226,7 +227,7 @@ my-course/
 │   ├── homework/                    # HW problem sets
 │   └── solutions/                   # HW solutions / worked examples
 │
-├── converted/                       # auto-generated markdown — do not edit
+├── converted/                       # generated Markdown — back up edits before re-ingest
 │   ├── lectures/                    # output of `paideia ingest` (vision-transcribed LaTeX)
 │   ├── textbook/  homework/  solutions/
 │
@@ -247,7 +248,8 @@ my-course/
 └── .paideia/run/                    # the composed stage specs handed to opencode (one per run)
 ```
 
-**Only two directories are yours to edit by hand:** `materials/` (drop source PDFs/MDs) and `answers/` (drop hand-written scan PDFs). Everything else is produced by commands and is regenerable. `git log <dir>` shows your progress over time, or point Obsidian at the whole folder as a vault.
+
+Drop source files in `materials/` and answer scans in `answers/`. All Markdown artifacts are editable; generation can overwrite derived files, so commit edits you want to preserve. Keep `errors/log.md` and the weakmap history: they record personal attempts that cannot be reconstructed from the source PDFs alone. Runtime context files and OCR engine names differ between editions; see the migration FAQ.
 
 ---
 
@@ -261,6 +263,8 @@ Paideia writes everything as plain markdown with LaTeX math (`$...$`, `$$...$$`)
 - Entirely offline, free, local. Consistent with Paideia's philosophy: your notes, your disk, your tool
 
 The terminal — even with a markdown preview — is bad for math; don't fight that.
+
+---
 
 ## And the lecture end: Alt
 
@@ -325,7 +329,9 @@ paideia weakmap                    # top 3 only. Do not learn new things.
 
 ---
 
-## Commands (16 + status)
+## Commands (17 total)
+
+This is the installed command inventory for this edition; `init` is an alias for `init-course`. It does not include the original's `reindex` or `graph` commands.
 
 | Command | Purpose |
 |---------|---------|
@@ -355,61 +361,61 @@ Global flags: `--model <provider/model>` (pass a model to opencode), `--dry-run`
 
 ### How a stage runs
 
-1. The harness resolves the course root (`.course-meta`), checks prerequisites, and does any deterministic prep.
-2. It composes a **stage spec** = the shared system prompt (`assets/prompts/_system.md`) + a live **course context** block (meta, `D-N`, phase, file listings, target files) + the ported command instructions (`assets/prompts/<command>.md`), interpolating `{{COURSE_NAME}}`, `{{INTERFACE_LANG}}`, `{{TS}}`, ….
-3. It writes the spec to `.paideia/run/<stage>-<ts>.md` and runs `opencode run --dir <course> -f <spec> [-m <model>] --dangerously-skip-permissions`.
-4. opencode executes the spec against the workspace, writing the artifacts.
-5. The harness does any deterministic post-step (clean scratch pages, archive a graded PDF, print the summary table).
+The harness finds the course root, validates prerequisites, prepares files, and writes a specification under `.paideia/run/`. It invokes `opencode run` with a driver prompt, `--dir`, and `-f <spec>`. The model reads the specification and creates the study artifacts; the harness handles deterministic cleanup and answer-PDF archiving after a successful grade process.
 
-`--dry-run` shows the exact command and the composed spec without invoking the model.
+`--dry-run` skips the model call but still writes the stage specification. It is a preview for model stages, not a universal no-write switch for setup/diagnostics. `blind` and `twin` use separate `--strategy "…"` invocations for the second step.
 
 ### Configuration
 
-- **Model** — `paideia <cmd> --model <provider/model>`, or set `PAIDEIA_MODEL`. Unset → opencode's configured default.
-- **Timeout** — every long-running child (each `opencode run`, and local OCR via `vision_ocr.py`) has a safety timeout (default **30 min**); raise it with `PAIDEIA_TIMEOUT=<seconds>` for very large courses, or to allow a slow local model.
-- **Permissions** — stages pass `--dangerously-skip-permissions` so they run unattended; set `PAIDEIA_ASK_PERMISSIONS=1` to keep opencode's approval prompts.
-- **Python** — `PAIDEIA_PYTHON` overrides the interpreter used for rendering and local OCR.
-- **Colour** — `paideia status` tints the course name on a TTY; `NO_COLOR=1` (or `--plain`) suppresses every escape, for embedding the line in another prompt.
-- **Exit codes** — `0` success, `1` usage or stage error. `paideia doctor` additionally returns `2` for blocking issues and `1` for warnings, so `paideia doctor && …` gates on a fully clean install.
-- **Workspace config** — `init-course` writes an `opencode.json` with `instructions: ["AGENTS.md"]` (ambient course context) and `permission` set to allow, plus a course-scoped `.gitignore`.
+| Setting | Effect |
+|---------|--------|
+| `--model provider/model` / `PAIDEIA_MODEL` | Select the model; otherwise use opencode's default. |
+| `PAIDEIA_TIMEOUT` | Long-running child timeout in seconds; default 1800. |
+| `PAIDEIA_PYTHON` | Interpreter for PDF rendering and local OCR. |
+| `PAIDEIA_ASK_PERMISSIONS=1` | Omit the driver's automatic-approval flag. The course's `opencode.json` permissions still apply. |
+| `NO_COLOR=1` / `status --plain` | Plain status output. |
+
+Bootstrap writes `AGENTS.md` and an `opencode.json` that loads it and allows `edit`, `bash`, and `webfetch`. Review those explicit rules if you want prompts for those operations. `doctor` exits with 0 when clean, 1 for warnings, and 2 for blocking problems. Other commands generally use 0 for success and 1 for errors. A successful model process is not a guarantee that every requested artifact was produced.
 
 ### Ingest pipeline: vision for every PDF
 
-`paideia ingest` routes every PDF in `materials/**` through the same vision pipeline. Text extraction was tried first and proved unreliable: even pages that *look* like plain prose silently word-salad as soon as they mix equations, figures, multi-column layouts, or margin notes.
+PDFs are rendered into page images before transcription. Markdown sources are copied with a provenance header. Ingest writes the converted material; analyze then creates `summary.md`, `patterns.md`, and `coverage.md` from those sources.
 
-The harness renders every page to PNG at `dpi=160` and resizes each to ≤1800 px on the long edge **before any agent starts reading** (many-image requests hard-reject images >2000 px; 16:9 slides blow past that unless you preempt the resize). Then opencode spawns one subagent per PDF, each reading its own pages *sequentially* and transcribing to LaTeX markdown — output like `$$\hat H = -\frac{\hbar^2}{2m}\partial_x^2 + V(x)$$` instead of `ℏ ∂ p2 ℏ 2 ∂ 2 p ̂`. Because the render is deterministic, the harness owns it (no token cost, and the resize-before-read ordering is guaranteed).
+The harness renders ingest PDFs at 160 dpi and caps the long edge at 1800 px before calling opencode. The spec requests one agent per PDF, reading its pages in order. Up-to-date conversions are skipped; `--force` reconverts. A same-named `.md` source takes precedence over a PDF in the same category.
+
+**Ingest always uses opencode's agent vision for PDFs.** `OCR_ENGINE` and `grade --ocr=…` select answer OCR; they do not change ingest. A Markdown-only ingest can finish without a model call.
 
 ### Hand-writing OCR: three engines, you pick
 
-You solve on paper, scan to PDF, drop it into `answers/`, and run `paideia grade`. The harness converts the scan to markdown via one of three engines, chosen per course (`OCR_ENGINE` in `.course-meta`) and overridable per call (`paideia grade --ocr=<engine>`):
+Solve on paper, scan to `answers/`, then run `paideia grade`. Engine choice is per course and can be overridden with `--ocr=<engine>`.
 
 | Engine | Default? | How it runs | When to pick it |
-|---|---|---|---|
-| `vision` | **Yes** | the harness rasterizes each page → opencode reads each PNG → synthesizes markdown in one pass. No extra model, nothing to install. | The out-of-the-box path. Strong on Korean + LaTeX. Needs a vision-capable model in opencode. |
-| `ollama` | opt-in | `vision_ocr.py --engine=ollama` → local Qwen3-VL 8B with automatic tesseract fallback. | You want the page images to never leave the machine. Requires `ollama pull qwen3-vl:8b` once (~6 GB). |
-| `tesseract` | opt-in | `vision_ocr.py --engine=tesseract` → pytesseract (`eng`, or `eng+kor` if `INTERFACE_LANG=ko`). | Fastest and lightest; acceptable for typed scans; poor on hand-writing. |
+|--------|----------|-------------|-----------------|
+| `vision` | Yes | Render pages, then read them through the agent's vision path. | A working vision-capable model/tool configuration. |
+| `ollama` | Optional | Local Ollama `qwen3-vl:8b`, with Tesseract fallback. | Keep the answer's OCR page images local. |
+| `tesseract` | Optional | Local `pytesseract`. | Typed scans; handwriting and math need careful review. |
 
-Each engine writes `answers/converted/<stem>.md` with a `<!-- SOURCE: ... -->` / `<!-- TIER: ... -->` header so `grade` can caveat low-confidence OCR.
+Default answer OCR is `vision`: page images are read through the runner's vision path. For local answer OCR, install Ollama and `qwen3-vl:8b`, then explicitly select `OCR_ENGINE: ollama` in `.course-meta` or pass `--ocr=ollama` to grade. Downloading the model alone does not change the engine. `tesseract` is the other local option. Local OCR keeps that transcription step local; subsequent analysis and grading still use the configured model and may send it the transcribed text.
 
 ### Strategy-based grading, not line-by-line
 
-OCR noise in hand-written math makes strict algebraic grading useless — a single misread `∫` vs `∑` cascades. More importantly, **pattern recognition is the actual exam bottleneck**, not arithmetic. The grader checks three things per problem:
+The grading instructions check (1) the selected pattern `Pk`, (2) the variables, substitution, basis, or contour, and (3) the final expression's form. Review the transcription and grade when OCR is uncertain. Errors are appended to `errors/log.md` using `problem_id`, `pattern`, `error_type`, `summary`, `source`, and `date`. Error types include `pattern-missed`, `wrong-variable`, `wrong-end-form`, `algebraic`, `sign`, and `definition`.
 
-1. **Pattern** — did the student pick the right Pk from `course-index/patterns.md`?
-2. **Variables** — did they identify the right substitution / basis / index / contour?
-3. **End-form** — does their final expression have the right shape (dimensions, asymptotics, structure)?
-
-Errors get logged as YAML to `errors/log.md` with a typed classification (`pattern-missed | wrong-variable | wrong-end-form | algebraic | sign | definition`). This log is the seed for `paideia weakmap` and the heart of the cheatsheet's *traps* section — `paideia cheatsheet` reads it alongside `patterns.md`, `coverage.md`, and `summary.md`.
+The cheatsheet uses the course index and error history together: patterns/formulas provide reference material, while your errors drive the traps and corrections. `--pdf` converts `cheatsheet/final.md` through pandoc or a ReportLab fallback. A missing or failed PDF export can print a warning while the command still exits 0; check that `final.pdf` exists and inspect its equations before printing.
 
 ### Patterns extracted from *your* solutions
 
-`paideia analyze` doesn't ship a generic "calculus moves" list. It reads your course's actual solution manual, extracts recurring solution patterns, and labels them P1, P2, … with worked instances that cite your own `converted/solutions/` files. For a complex analysis course, P3 might be "closed contour + Jordan's lemma + residue at essential singularity." Every discipline has its own moves; only the course itself reveals them.
+`paideia analyze` reads the course's solutions and worked examples, labels recurring moves `P1`, `P2`, …, and cites the source files under `converted/`. The resulting pattern cards and HW coverage are the context for later drills. The model-generated index should be checked against your assignments.
 
-### Append-only history & status
+### Append-only history
 
-`weakmap/` never overwrites — every run produces `weakmap/weakmap_<ISO-timestamp>.md`, so `git log weakmap/` is "`git diff` your own understanding over time."
+Commands append attempts to `errors/log.md` and save dated reports under `weakmap/`. Keep that history when re-ingesting or migrating. Generated problem sets have separate answer/solution siblings; solve the problems before opening them.
 
-`paideia status` reports where you are in the cycle — `paideia · <COURSE> · D-<days> · <phase> · P<top-miss> ↑` — derived from **activity on disk**, not the calendar: `setup` (no `patterns.md`) → `diag` (no graded error yet) → `drill` (quiz problems + a graded `- problem_id:` entry) → `mock` (a mock-sourced entry appeared) → `cram` (`cheatsheet/final.*` exists) → `cool` (`D-0`). `<top-miss>` is the top-ranked `pattern:` tag in the latest weakmap — the report is already priority-ordered — falling back to the most frequent `pattern:` tag in `errors/log.md`. `paideia status --banner` prints the same as a two-line session brief.
+### Status and the session banner
+
+`paideia status` reports course · D-N · phase · top-miss. The detector uses `setup` when `patterns.md` is absent; `diag` when patterns exist without both a quiz problem and a recognized error entry; `drill` once both exist; `mock` after a recognized mock-sourced record; `cram` when `cheatsheet/final.md` or `.pdf` exists; and `cool` on exam day. The latest weakmap's first pattern is preferred, with error-log frequency as fallback. This is a filesystem heuristic, not evidence of mastery.
+
+`paideia status --banner` prints a two-line brief. This is an explicit command; the package does not install a host session-start hook.
 
 ---
 
@@ -445,35 +451,38 @@ PAIDEIA-opencode/
 
 ## Design convictions
 
-1. **The terminal is bad for math.** The harness produces markdown files; you read them (ideally in Obsidian).
-2. **Typing solutions is slow and error-prone.** You solve on paper, scan, and the harness OCRs locally.
-3. **OCR noise is inevitable.** So grading is strategy-based (pattern / variables / end-form), not line-by-line algebra — which is what the actual exam grader evaluates anyway.
-4. **Patterns must be extracted from *your* course's solutions** — not a generic list.
-5. **Your errors are the most valuable study signal** — more than the textbook, more than the lectures. The cheatsheet is generated from `errors/log.md`, not the syllabus.
-6. **HW density tells you the exam.** Your time is finite; spend it where the points are.
-7. **Everything is yours to edit.** Patterns, weakmaps, cheatsheets, the error log — all plain markdown/YAML in your own git history. The harness is a scaffold; the study graph is yours.
+1. **Read the math as Markdown.** Open the course in Obsidian or a Markdown-capable desktop view.
+2. **Solve on paper.** Scan the answer and choose the OCR path that fits your setup.
+3. **Review strategy and transcription.** Pattern, variables, and final form guide grading; OCR and model judgments can need correction.
+4. **Extract patterns from your course.** Cite the supplied solutions and worked examples.
+5. **Learn from recorded errors.** Let them shape practice and the cheatsheet's traps.
+6. **Use homework to prioritize.** Treat its density as a study signal and check it against the announced exam scope.
+7. **Keep the study graph yours.** Editable Markdown, preserved error history, and version control across sessions.
 
 ---
 
 ## FAQ
 
 **Does this work for non-math courses?**
-It's built around problem-pattern extraction, so it shines in quantitative disciplines: math, physics, EE, CS-theory, ML-theory, statistics, engineering. For history or literature it would still ingest and summarize, but the drill commands assume problems have solution patterns.
+Ingest and summarization can help, but the practice workflow assumes recurring problem-solving patterns. It is designed for math, physics, engineering, and related quantitative courses.
+
+**How does the next session remember my work?**
+The course context, index, and error history are files. Later commands read them again; your study record is not dependent on chat history alone.
+
+**Can I edit the patterns or cheatsheet?**
+Yes. Save changes in any Markdown editor and commit the files you want to preserve before regenerating them. Keep the error log and weakmap history.
 
 **Korean and English mixed materials?**
-Yes. Ingestion and OCR are configured for `eng+kor`. Patterns and grading responses honor the language mix of your source materials; set the interface language per course in `init-course`.
+Set `INTERFACE_LANG: en` or `ko` in `.course-meta` for the generated narrative. File paths, pattern IDs, YAML keys, and tier tokens stay unchanged. The local OCR helper uses the corresponding Tesseract language configuration; install the needed language packs.
 
-**How is this different from just asking an LLM to help me study?**
-Per-course persistence. An LLM chat has no memory of the pattern you missed on HW2, no ranking of which sections your professor emphasizes, no notion of "your typical error type." Paideia writes all of that to markdown on your disk. A `paideia weakmap` today is informed by every `paideia grade` since the course began, because `errors/log.md` is append-only.
+**Do I need Ollama, and is the whole workflow offline?**
+Ollama is optional. The default uses the runtime’s vision path. Local OCR keeps image transcription on your machine, but analysis and grading still use your configured model. See the OCR engine table above for the required setup.
 
-**Why a harness and not an opencode plugin?**
-A plugin lives inside one editor's loop. A harness owns the study logic itself and drives opencode as an interchangeable execution engine — which is why the same study graph is portable across the Claude Code, Codex, and opencode editions. You can read the exact instructions sent to the model (`.paideia/run/*.md`) and re-run any stage with `--dry-run`.
+**Can I move a course between PAIDEIA editions?**
+The Markdown study artifacts share a layout. Review the destination's context file and engine names first: `CLAUDE.md` / `AGENTS.md` / `PAIDEIA.md`, and `claude` / `codex-native` / `vision` or `ollama` / `qwen3-vl`. Preserve your existing metadata and personal history; the versions do not have identical configuration or command sets.
 
-**Do I need Ollama / Qwen3-VL?**
-No. The default OCR engine is the opencode agent's native vision — no extra install. Ollama + `qwen3-vl:8b` is opt-in for users who want page images to stay on their machine; `tesseract` is a third option for minimal-install setups.
-
-**Is my data private?**
-Your PDFs, markdown, errors, and weakmaps all live in your local course folder. Network traffic depends on the OCR engine: with `vision`, page images flow through opencode's configured model provider; with `ollama` / `tesseract`, nothing leaves the machine.
+**Does model-generated grading need review?**
+Yes. The source scan, transcription, referenced patterns, and YAML log let you inspect and correct an assessment. The status indicator is a file-based workflow cue, not an independent measurement of understanding.
 
 ---
 
@@ -483,7 +492,9 @@ Your PDFs, markdown, errors, and weakmaps all live in your local course folder. 
   <a href="https://github.com/TaewoooPark"><img src="https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white&cacheSeconds=3600" alt="GitHub"></a>
   <a href="https://x.com/theoverstrcture"><img src="https://img.shields.io/badge/-X-000000?style=for-the-badge&logo=x&logoColor=white&cacheSeconds=3600" alt="X (Twitter)"></a>
   <a href="https://www.linkedin.com/in/taewoo-park-427a05352"><img src="https://img.shields.io/badge/-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&cacheSeconds=3600" alt="LinkedIn"></a>
+  <a href="https://www.instagram.com/t.wo0_x/"><img src="https://img.shields.io/badge/-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white&cacheSeconds=3600" alt="Instagram"></a>
   <a href="https://taewoopark.com"><img src="https://img.shields.io/badge/-taewoopark.com-000000?style=for-the-badge&logo=safari&logoColor=white&cacheSeconds=3600" alt="Personal site"></a>
+  <a href="mailto:ptw151125@kaist.ac.kr"><img src="https://img.shields.io/badge/-Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&cacheSeconds=3600" alt="Email"></a>
 </p>
 
 ---
