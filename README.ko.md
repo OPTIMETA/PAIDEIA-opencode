@@ -1,54 +1,64 @@
 <h1 align="center">ΠΑΙΔΕΙΑ · Paideia <sub>for opencode</sub></h1>
 
 <p align="center">
-  <strong>당신의 수업. 당신의 패턴. 당신의 오답. 당신의 치트시트.</strong><br>
-  <em>당신의 자료를 영속적이고 편집 가능한 코스별 학습 그래프로 바꾸는 시험대비 하네스 — 모든 산출물이 일반 강의계획서가 아니라 당신에 의해 형성됩니다. opencode 에디션: 에디터 플러그인이 아니라 <a href="https://opencode.ai">opencode</a>를 구동하는 독립 하네스.</em>
+  <strong>당신의 과목, 당신의 패턴, 당신의 오답, 당신의 치트시트.</strong><br>
+  <em>당신의 자료에서 출발해 한 과목에 영속적으로 머무는 학습 그래프를 만드는 opencode 기반 명령줄 프로그램입니다 — 모든 산출물이 일반 실러버스가 아니라 당신의 손끝에서 빚어집니다.</em>
 </p>
 
 <p align="center">
-  <a href="https://github.com/OPTIMETA/PAIDEIA-Alt"><img height="30" src="https://img.shields.io/badge/Exam_Radar-OPTIMETA_Alt_plugin-333333?style=for-the-badge&labelColor=000000&color=333333" alt="Exam Radar — OPTIMETA Alt plugin"></a>
-</p>
-
-<p align="center">
-  <sub><em><a href="https://github.com/OPTIMETA/PAIDEIA-Alt"><strong>Exam Radar</strong></a>(OPTIMETA의 Alt 플러그인)로 강의를 포착하고 Paideia로 공부하세요. <code>paideia alt</code>로 로드맵을 바로 흘려보낼 수 있습니다.</em></sub>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/github/license/OPTIMETA/PAIDEIA-opencode?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="License">
-  <img src="https://img.shields.io/github/stars/OPTIMETA/PAIDEIA-opencode?style=flat-square&logo=github&logoColor=white&labelColor=000000&color=333333&cacheSeconds=3600" alt="GitHub stars">
-  <img src="https://img.shields.io/github/last-commit/OPTIMETA/PAIDEIA-opencode?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="Last commit">
+  <img src="https://img.shields.io/badge/license-MIT-333333?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="라이선스">
+  <img src="https://img.shields.io/github/stars/OPTIMETA/PAIDEIA-opencode?style=flat-square&logo=github&logoColor=white&labelColor=000000&color=333333&cacheSeconds=3600" alt="GitHub 스타 수">
+  <img src="https://img.shields.io/github/last-commit/OPTIMETA/PAIDEIA-opencode?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="최근 커밋">
+  <img src="https://img.shields.io/github/languages/top/OPTIMETA/PAIDEIA-opencode?style=flat-square&labelColor=000000&color=333333&cacheSeconds=3600" alt="주요 언어">
   &nbsp;
   <img src="https://img.shields.io/badge/opencode-000000?style=flat-square&logo=opencode&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="opencode">
   <img src="https://img.shields.io/badge/Harness-000000?style=flat-square&labelColor=000000&color=000000&cacheSeconds=3600" alt="Harness">
+  <img src="https://img.shields.io/badge/Markdown-000000?style=flat-square&logo=markdown&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Markdown">
   <img src="https://img.shields.io/badge/Node.js-000000?style=flat-square&logo=nodedotjs&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Node.js">
   <img src="https://img.shields.io/badge/Python-000000?style=flat-square&logo=python&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Python">
   <img src="https://img.shields.io/badge/Ollama-000000?style=flat-square&logo=ollama&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Ollama">
   <img src="https://img.shields.io/badge/Qwen3--VL-000000?style=flat-square&labelColor=000000&color=000000&cacheSeconds=3600" alt="Qwen3-VL">
   <img src="https://img.shields.io/badge/Tesseract-000000?style=flat-square&labelColor=000000&color=000000&cacheSeconds=3600" alt="Tesseract">
+  &nbsp;
   <img src="https://img.shields.io/badge/LaTeX-000000?style=flat-square&logo=latex&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="LaTeX">
   <img src="https://img.shields.io/badge/Obsidian-000000?style=flat-square&logo=obsidian&logoColor=white&labelColor=000000&cacheSeconds=3600" alt="Obsidian">
 </p>
 
 <p align="center">
-  <a href="./README.md">English README</a>
-  &nbsp;·&nbsp;
-  <a href="https://github.com/OPTIMETA/PAIDEIA"><strong>PAIDEIA</strong> — 원본 Claude Code 에디션</a>
-  &nbsp;·&nbsp;
-  <a href="https://github.com/OPTIMETA/PAIDEIA-codex"><strong>PAIDEIA-codex</strong> — OpenAI Codex CLI 에디션</a>
+  <a href="https://news.hada.io/topic?id=29865"><img height="34" src="https://img.shields.io/badge/GeekNews-%231%20on%2026.05.26-333333?style=for-the-badge&labelColor=000000&color=333333" alt="GeekNews #1 on 26.05.26"></a><a href="https://news.hada.io/weekly/202622"><img height="34" src="https://img.shields.io/badge/GeekNews%20Weekly-%23360-333333?style=for-the-badge&labelColor=000000&color=333333" alt="GeekNews Weekly #360"></a><br>
+  <a href="https://www.producthunt.com/products/paideia"><img height="34" src="https://img.shields.io/badge/Product%20Hunt-Launched-333333?style=for-the-badge&logo=producthunt&logoColor=white&labelColor=000000&color=333333" alt="Product Hunt launch"></a><a href="https://www.taewoopark.com/projects/paideia"><img height="34" src="https://img.shields.io/badge/Interactive%20Demo-Live-333333?style=for-the-badge&labelColor=000000&color=333333" alt="Interactive demo at taewoopark.com"></a>
+  <br><sub>원본 PAIDEIA의 소개 기사와 인터랙티브 데모입니다.</sub>
 </p>
 
-> **Claude Code나 Codex 대신 opencode를 쓰시나요?** 같은 도구, 같은 디스크 구조, 같은 라이선스 — opencode를 구동하는 **하네스**로 재구축했습니다. 원본 PAIDEIA는 Claude Code *플러그인*(에디터가 로드하는 커맨드+스킬)이지만, 이 에디션은 opencode 위에 앉아 그것을 구동하는 독립 프로그램입니다(스테이지마다 `opencode run` 한 번). 이미 결제 중인 에이전트 런너를 고르세요 — 만들어지는 학습 그래프는 세 에디션 모두 동일하고 이식 가능합니다.
+<p align="center">
+  <a href="./README.md">English README</a>
+  &nbsp;·&nbsp;
+  <a href="https://taewoopark.com"><strong>taewoopark.com</strong> — 저자 사이트</a>
+</p>
 
-> **보안 안내.** PAIDEIA for opencode는 일반 npm/Node CLI(`paideia`)로 설치되며, `.zip` 다운로드·`.exe` 실행·별도 인스톨러를 절대 요구하지 않습니다. 이 README에서 명시적으로 링크되지 않은, PAIDEIA 이름을 쓰는 다른 저장소는 본 프로젝트와 무관합니다.
+<p align="center"><sub><strong>PAIDEIA 패밀리 — 하나의 학습 엔진, 모든 에이전트 런타임</strong></sub></p>
+
+| 플랫폼 | 저장소 | 설명 |
+|:--:|:--|:--|
+| <a href="https://github.com/OPTIMETA/PAIDEIA"><img src="https://cdn.simpleicons.org/claude/D97757" height="24" alt="Claude"></a> | **[PAIDEIA](https://github.com/OPTIMETA/PAIDEIA)** | 원본 — **Claude Code** 플러그인. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-codex"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/ChatGPT-Logo.svg" height="24" alt="OpenAI Codex"></a> | **[PAIDEIA-codex](https://github.com/OPTIMETA/PAIDEIA-codex)** | **OpenAI Codex** 스킬 + 번들 MCP 서버. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-opencode"><img src="https://cdn.simpleicons.org/opencode/888888" height="24" alt="opencode"></a> | **[PAIDEIA-opencode](https://github.com/OPTIMETA/PAIDEIA-opencode)** | **opencode**를 구동하는 명령줄 프로그램. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-Hermes"><img src="https://github.com/hermes-agent.png" height="24" alt="hermes-agent"></a> | **[PAIDEIA-Hermes](https://github.com/OPTIMETA/PAIDEIA-Hermes)** | **Hermes Agent** 플러그인: CLI 명령 + 게이트웨이 라우팅. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-mcp"><img src="https://cdn.simpleicons.org/modelcontextprotocol/888888" height="24" alt="MCP"></a> | **[PAIDEIA-mcp](https://github.com/OPTIMETA/PAIDEIA-mcp)** | 독립형 로컬 **MCP** 서버 — Alt 로컬 모델에서 PAIDEIA 구동. |
+| <a href="https://github.com/OPTIMETA/PAIDEIA-Alt"><img src="https://github.com/altalt-org.png" height="24" alt="Alt · altalt.org"></a> | **[PAIDEIA-Alt](https://github.com/OPTIMETA/PAIDEIA-Alt)** | **Exam Radar** — Alt 강의 캡처 플러그인 ([altalt.org](https://altalt.org)). |
 
 <p align="center">
-  <em>일반 학습 도구는 평균 강의계획서를 가르칩니다. Paideia는 <strong>당신의</strong> 강의계획서를 가르칩니다 —<br>
-  교수님의 노트, 당신의 과제 강조점, 당신의 손글씨, 당신의 오답으로부터. 모든 산출물은 편집 가능한 마크다운 파일입니다.</em>
+  <em>일반적인 학습 도구는 평균적인 실러버스를 가르칩니다. Paideia는 <strong>당신의</strong> 실러버스를 가르칩니다 —<br>
+  당신의 교수님 강의노트, 당신의 숙제 경향, 당신의 필기, 당신의 오답에서 출발해서요. 모든 산출물은 당신이 직접 편집할 수 있는 마크다운 파일입니다.</em>
+</p>
+
+<p align="center">
+  <img src="./docs/media/terminal-help.png" alt="macOS에서 실행한 opencode PAIDEIA" width="100%">
 </p>
 
 ---
 
-## Paideia의 뜻
+## Paideia라는 이름에 대하여
 
 고대 그리스에서 **Παιδεία**는 수동적인 학생에게 사실을 입력하는 일이 결코 아니었습니다. 그것은 원전과의 구조적 만남, 스승 아래의 안내된 연습, 피드백을 더 깊은 수정으로 접어 넣는 성찰적 대화를 통한 — 한 인간의 평생에 걸친 형성이었습니다.
 
@@ -60,92 +70,88 @@
      └────────────────── 피드백 루프 ─────────────────────────┘
 ```
 
-모든 단계는 당신의 코스 폴더에 영원히 남는 마크다운 산출물을 만듭니다. 휘발되는 것도, API 뒤에 숨는 것도, 다음 펀딩 한파에 멈추는 것도 없습니다.
+학습 단계의 산출물은 코스 폴더의 마크다운 파일로 남습니다. 에이전트와 별개로 계속 읽고, 편집하고, 버전 관리할 수 있습니다. 새로운 산출물을 생성할 때는 해당 단계의 실행 환경·도구·모델이 필요합니다.
 
 ---
 
-## 플러그인이 아니라 하네스
+## 일반적인 학습 도구가 하지 못하는 것
 
-원본 PAIDEIA는 *플러그인*입니다 — 에디터(Claude Code)가 자기 에이전트 루프 안에서 로드·실행하는 커맨드·스킬이죠. 이 에디션은 **하네스**입니다. opencode *위에* 앉아 그것을 구동하는 독립 프로그램입니다.
+Paideia는 *당신*의 과목, *당신* 교수님의 과제, *당신*의 실수에서 출발합니다. 강의노트·교재 챕터·숙제·풀이·스캔 답안을 코스 폴더에 넣으면 그것이 학습의 기준이 됩니다.
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│  paideia  (하네스 — 시험대비 로직 전부를 소유)               │
-│                                                              │
-│   커맨드   ─▶ 결정적 사전작업          ─▶ 스테이지 SPEC 합성  │
-│   파싱        (PDF 렌더·OCR·파일 탐색·      (시스템 +        │
-│               git·워크스페이스 관리)        코스 컨텍스트 +  │
-│                          │                   커맨드 지시문)  │
-│                          ▼                        ▼          │
-│                  python / poppler        opencode run --dir … │
-│                  / ollama / tesseract    -f <spec>           │
-└──────────────────────────────────────────────┬───────────────┘
-                                                ▼
-                          opencode  (실행 엔진)
-                  모델 · 도구(Read/Write/Bash/Task) · 인증
-```
+일반 커리큘럼이나 직접 만든 플래시카드도 함께 사용할 수 있습니다. Paideia가 더하는 것은 풀이에서 반복 패턴을 추출하고, 숙제 밀도로 연습 우선순위를 정하고, 오답 기록을 다음 드릴에 반영하는 흐름입니다. 아래 표는 이 흐름의 차이를 설명하며, 개별 학습 서비스의 기능이나 요금제를 단정하지 않습니다.
 
-- **하네스가 학습 로직을 소유합니다.** 모든 커맨드·프롬프트·규칙이 이 저장소에 있습니다. opencode에 PAIDEIA 플러그인/에이전트/스킬을 설치할 필요가 없습니다.
-- **opencode는 기반(substrate)입니다.** 모델·파일/셸/서브에이전트 도구·인증을 제공합니다. 각 스테이지는 한 번의 `opencode run`입니다.
-- **결정적 작업은 하네스에 남습니다** (PDF 래스터화, 로컬 OCR, 디렉토리 골격, 멱등성, git, PDF 아카이브, 단계 감지) — 토큰 비용도 추측도 없습니다.
-- **모델은 모델다운 일만 합니다** (비전 전사, 패턴 추출, 문제 생성, 전략 채점) — 완전히 합성된 명세로.
-
----
-
-## 일반 학습 도구가 못 하는 것
-
-대부분의 학습 도구는 *당신의* 코스·교수님·실수에 맞출 수 없습니다. 그들이 파는 상품이 일반 커리큘럼이기 때문입니다.
-
-- **Coursera, edX, Khan Academy** — 고정 커리큘럼; 당신의 교수가 무엇을 강조하는지 모릅니다.
-- **Quizlet, Anki** — 모든 카드를 직접 큐레이션; 당신의 솔루션에서 패턴을 유도하지 않습니다.
-- **ChatGPT Study Mode, Gemini, NotebookLM** — 코스별 영속 상태가 없습니다. 매 세션이 차갑게 시작하고, 지난주 실수가 이번 주 드릴을 형성하지 않습니다.
-
-이 중 어느 것도 눈앞의 구체적 자료를 중심으로 이해를 *형성*하지 않습니다. Paideia는 정반대입니다 — 모든 산출물이 *당신의* 폴더(강의 노트·교재 챕터·과제·솔루션·손글씨 시도)에서 유도되어, 편집 가능한 평문 마크다운으로 영구히 쌓입니다.
-
-| 축 | Paideia | 일반 edu-SaaS / LLM 채팅 |
+| 축 | Paideia | 일반 강좌 또는 구조화하지 않은 채팅 |
 |-----|---------|------------------------------|
-| 풀이 패턴 (`P1..Pk`) | *당신 코스의* 솔루션에서 추출, 당신 파일 인용 | 일반 교재 목록 또는 없음 |
-| 드릴 우선순위 | *교수님의* 과제 강조로 가중 (HW 밀도 = 시험 등급) | 고정 커리큘럼 또는 직접 추측 |
-| 치트시트 | *당신의* `errors/log.md`에서 — 실제로 틀린 것 | 강의계획서 보일러플레이트 |
-| 세션 간 코스 상태 | 영속 마크다운+YAML, 작업하며 성장 | 대화 리셋; 이력은 유료 |
-| 동의 안 되는 산출물 편집 | `.md`를 아무 에디터로 열어 저장 | 읽기 전용 UI |
-| 산출물 위치 | 당신의 디스크, 텍스트로 | 원격 DB, 유료로만 내보내기 |
+| 풀이 패턴 (`P1..Pk`) | 내 과목의 풀이에서 추출하고 출처를 인용 | 과목 자료와 별도 지시가 필요 |
+| 드릴 우선순위 | 교수님의 숙제 비중으로 가중 | 별도로 정하고 관리해야 함 |
+| 치트시트 | 오답으로 주의점을 고르고 코스 인덱스에서 참조 내용을 가져옴 | 별도로 구성하고 갱신해야 함 |
+| 세션을 넘는 과목 상태 | 코스 폴더의 마크다운 + 메타데이터 | 서비스와 맥락 제공 방식에 따라 다름 |
+| 동의하지 않는 산출물 수정 | 에디터에서 `.md`를 열어 저장 | 도구의 편집·내보내기 지원에 따라 다름 |
+| 다음 학기로 준비 자료 옮기기 | 코스 폴더를 복사하고 바뀐 자료를 수정 | 관련 자료와 이력을 옮겨야 함 |
+| 이해의 변화 이력 | 파일을 커밋하면 `git log` / `git diff`로 확인 | 도구의 버전 관리 지원에 따라 다름 |
+| 산출물의 위치 | 내 디스크의 텍스트 파일 | 서비스에 따라 다름 |
 
-하네스는 무거운 작업에 opencode(유료 모델과 통신)를 쓰지만, 만들어지는 모든 것은 디스크에 평문 마크다운으로 남습니다. 런너를 바꾸거나 구독을 멈춰도 course-index·patterns·error log·weakmap·치트시트는 전부 당신 것입니다. 발판은 하네스, 학습 그래프는 당신 것입니다.
+모델 작업은 실행 환경이 담당하고, 학습 그래프는 언제든 열고 읽고 수정하고 비교할 수 있는 파일로 남습니다. 제공자를 바꾸거나 구독을 중단해도 이미 만들어진 파일은 사라지지 않습니다.
 
-기본적으로 OCR은 opencode 에이전트의 네이티브 비전을 거칩니다. 손글씨 PDF가 기기를 절대 떠나지 않길 원하면 `ollama pull qwen3-vl:8b`(일회성 ~6GB)로 이후 모든 OCR을 로컬 Qwen3-VL 추론으로 전환할 수 있습니다.
-
----
-
-## 핵심 원칙: 과제 밀도 = 시험 출제 확률
-
-"똑똑하게 공부하라"는 조언 대부분은 사각지대를 사냥하라고 합니다. 그건 **거꾸로**입니다. 교수는 과제를 내줌으로써 시험 점수가 어디 있는지 *이미 알려줬습니다.* 과제가 많은 섹션이 🔥🔥 시험 핵심입니다. 과제가 0인 섹션은 "숨은 함정"이 아니라 ⚪ 저위험입니다. 교수의 누락은 그 주제가 시험에서 빠진다는 가장 강력한 신호입니다.
-
-Paideia의 랭킹은 이를 명시하고, 모든 드릴 커맨드가 기본으로 이를 따릅니다:
-
-| 등급 | 섹션 과제 수 | 처리 | 모의고사 배점 비중 |
-|------|---------------------|-----------|---------------------------|
-| 🔥🔥 시험 핵심 | 3+ | 가장 강하게 드릴 | ≥70% |
-| 🔥 시험 유력 | 2 | 다음 드릴 | ~25% |
-| 🟡 시험 가능 | 1 | 가볍게 복습 | ≤5% |
-| ⚪ 저위험 | 0 | 참고용 | 0 |
-
-`paideia quiz all`, `paideia mock`, `paideia hwmap hot`은 모두 이 등급으로 출력을 가중합니다. ⚪ 섹션 드릴을 고집하면 하네스는 한 번 따르되 시험 확률이 낮다고 경고합니다 — 당신의 유한한 시간은 상상 속 함정보다 가치 있습니다.
+기본 답안 OCR은 `vision`이며 실행 환경의 비전 경로로 페이지 이미지를 읽습니다. 로컬 답안 OCR을 쓰려면 Ollama와 `qwen3-vl:8b`를 설치한 뒤 `.course-meta`에 `OCR_ENGINE: ollama`로 지정하거나 grade에 `--ocr=ollama` 옵션을 붙이세요. 모델을 다운로드하는 것만으로 엔진이 바뀌지는 않습니다. `tesseract`도 로컬 선택지입니다. 로컬 OCR은 전사 단계를 기기 안에서 처리하며, 이후 분석·채점은 설정된 모델을 사용하므로 전사된 텍스트가 외부 모델에 전달될 수 있습니다.
 
 ---
 
-## Formation Cycle, 단계별
+## 핵심 원리: 숙제 밀도가 곧 출제 확률입니다
+
+숙제는 Paideia가 시험 준비 시간을 배분하는 일차 신호입니다. 과제가 많이 배정된 절은 더 연습하고, 숙제가 없는 절은 기본적으로 참조 자료로 둡니다. **이 티어는 학습 우선순위이며, 통계적으로 측정한 출제 확률이나 실제 시험 범위에 대한 보장은 아닙니다.**
+
+| 티어 | 해당 절의 숙제 수 | 처리 | 모의고사 배점 목표 |
+|------|-------------------|------|--------------------|
+| 🔥🔥 출제 핵심 | 3개 이상 | 가장 집중해서 연습 | ≥70% |
+| 🔥 출제 유력 | 2개 | 다음 순서로 연습 | ~25% |
+| 🟡 출제 가능 | 1개 | 가볍게 복습 | ≤5% |
+| ⚪ 저위험 | 0개 | 기본적으로 참조용 | 기본 0 |
+
+`paideia quiz all`, `paideia mock 90`, `paideia hwmap hot`은 이 순위를 사용합니다. 배점은 문제를 생성하는 에이전트에 주는 지침이므로, 정확한 비율이 필요하면 생성된 모의고사를 확인하세요. 사용자의 요청과 Exam Radar로 가져온 강의 강조 신호도 복습 범위를 결정하는 데 참고할 수 있습니다.
+
+---
+
+## 형성 사이클, 단계별 해설
+
+<p align="center"><sub><em>Mac에서 실제 실행한 CLI를 로컬 터미널 뷰어로 촬영했습니다. 코스 자료는 검증용으로 만든 작은 예제입니다.</em> · <a href="docs/media/README.md">촬영 조건</a></sub></p>
+<table>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-status.png" alt="paideia status">
+      <br><sub><b><code>paideia status</code></b> — course · D-N · phase</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-help.png" alt="paideia --help">
+      <br><sub><b><code>paideia --help</code></b> — command reference</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-ingest.png" alt="paideia ingest">
+      <br><sub><b><code>paideia ingest</code></b> — Markdown ingest</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="docs/media/terminal-doctor.png" alt="paideia doctor">
+      <br><sub><b><code>paideia doctor</code></b> — dependency check</sub>
+    </td>
+  </tr>
+</table>
+
+**셸에서 `paideia <명령>`을 실행합니다.** 이 에디션은 독립적인 Node.js 프로그램입니다. 파일과 단계별 작업 명세를 준비한 다음, 모델 작업을 위해 `opencode run`을 시작합니다. `status`를 포함한 명령 17개를 제공하며 `init`은 `init-course`의 별칭입니다.
+
+초기 설정·진단·상태 확인·마크다운 복사는 로컬에서 수행합니다. 모델을 사용하는 단계는 각각 별도 CLI 호출입니다. 두 단계로 진행하는 blind/twin 연습에서는 `paideia blind <id> --strategy "…"` 또는 `paideia twin <id> --strategy "…"`로 접근법을 제출합니다. 답변을 기다리는 PAIDEIA 채팅 세션은 유지하지 않습니다. 생성된 수식은 Obsidian에서 읽을 수 있습니다.
 
 | 단계 | 하는 일 | 커맨드 | 산출물 |
 |-------|-------------|----------|----------|
 | **Encounter** | 교수의 신호를 읽음 | `paideia ingest` | `converted/**/*.md` — 모든 강의·교재·과제·솔루션을 깔끔한 마크다운으로 |
 | **Structure** | 코스의 문법을 추출 | `paideia analyze` | `course-index/{summary,patterns,coverage}.md` — 토픽 트리, 반복 풀이 패턴(P1..Pk), HW밀도 시험등급 |
-| **Practice** | 교수가 실제 내는 것에 가중한 능동 회상 | `paideia quiz` `twin` `blind` `chain` `mock` | `quizzes/` `twins/` `chain/` `mock/` — 종이에 푸는 문제 |
+| **Practice** | 숙제 비중에 가중한 능동 회상 | `paideia quiz` `twin` `blind` `chain` `mock` | `quizzes/` `twins/` `chain/` `mock/` — 종이에 푸는 문제 |
 | **Reflection** | 손글씨 작업이 점수가 됨 | `paideia grade` | `answers/converted/<name>.md` + `errors/log.md` — 에이전트 비전(기본)/Ollama/Tesseract OCR 후 전략 채점 |
 | **Diagnosis** | 오답을 우선순위 약점 리포트로 압축 | `paideia weakmap` | `weakmap/weakmap_<ts>.md` — 추가 전용 이력 |
 | **Distillation** | 한 페이지, 오답 기반, 인쇄용 | `paideia cheatsheet` `derive` `pattern` | `cheatsheet/final.md`, `derivations/<slug>.md` |
 
-보조: `paideia hwmap`은 HW밀도 시험확률을, `paideia status`는 사이클상 현재 위치를 보여주고, `paideia init-course`는 새 코스 폴더를 부트스트랩합니다.
+보조: `paideia hwmap`은 HW밀도 기반 학습 우선순위를, `paideia status`는 사이클상 현재 위치를 보여주고, `paideia init-course`는 새 코스 폴더를 부트스트랩합니다.
 
 ---
 
@@ -157,7 +163,7 @@ Paideia의 랭킹은 이를 명시하고, 모든 드릴 커맨드가 기본으�
 
 - **Node ≥ 18.17** (하네스 실행 — 순수 ESM, 런타임 의존성 0)
 - **[opencode](https://opencode.ai)** (실행 엔진) — `npm i -g opencode-ai`, 그리고 한 번 `opencode auth login`
-- **Python 3.9+** + `pdf2image` + `pillow` (PDF 렌더·로컬 OCR); `cheatsheet --pdf`용 `reportlab` 추가
+- **Python 3.9+** + 렌더링용 `pdf2image`·`pillow`. PAIDEIA가 사용하는 Python 환경에서 `python3 -m pip install pdf2image pillow` 명령을 실행하세요. 로컬 Tesseract·폴백에는 `pytesseract`, PDF 내보내기 폴백에는 `reportlab`을 추가합니다. `PAIDEIA_PYTHON`으로 가상환경 인터프리터를 선택할 수 있습니다.
 - Unix 계열 셸(`bash`/`zsh`). Windows는 [WSL2](https://learn.microsoft.com/windows/wsl/install).
 - **macOS**: `brew install poppler tesseract tesseract-lang`
 - **Linux (Debian/Ubuntu)**: `apt-get install poppler-utils tesseract-ocr tesseract-ocr-kor`
@@ -166,7 +172,7 @@ Paideia의 랭킹은 이를 명시하고, 모든 드릴 커맨드가 기본으�
 
 - `ollama` + `qwen3-vl:8b` 모델 (~6GB). `brew install ollama && ollama pull qwen3-vl:8b`.
 
-Ollama를 설치하지 않으면 기본 OCR 엔진은 opencode 에이전트의 비전입니다 — 추가 설치 없음.
+기본 답안 OCR은 `vision`이며 위 렌더링 의존성과 정상 작동하는 opencode 비전 모델이 필요합니다. `ollama`를 선택하려면 로컬 Ollama 서버가 실행 중이어야 합니다. 모델 다운로드만으로 엔진이 바뀌지는 않습니다.
 
 ### 하네스 설치
 
@@ -188,18 +194,19 @@ paideia init-course
 ```
 
 대화형으로:
+
 1. 이 코스의 인터페이스 언어를 물어봅니다 — `en`(기본) 또는 `ko`. 이후 모든 프롬프트·드릴 지시·생성 MD 서술이 이를 따릅니다. 구조 토큰(파일 경로, 커맨드 이름, 패턴 ID `P1, P2, …`, YAML 키, 등급 마커)은 언어와 무관하게 영어로 유지됩니다.
-2. 기본 OCR 엔진을 물어봅니다: `vision`(에이전트 비전, 설치 불필요), `ollama`(로컬 Qwen3-VL), `tesseract`.
+2. 기본 OCR 엔진을 물어봅니다: `vision`(에이전트 비전), `ollama`(로컬 Qwen3-VL), `tesseract`.
 3. `COURSE_NAME`, `EXAM_DATE`, `EXAM_TYPE`, `USER_WEAK_ZONES`를 물어봅니다.
 4. 디렉토리 골격을 생성합니다.
 5. `.course-meta`(모든 커맨드와 `vision_ocr.py`가 읽는 `INTERFACE_LANG`+`OCR_ENGINE`), `AGENTS.md` 코스 컨텍스트, 그리고 `instructions` 키로 `AGENTS.md`를 폴더 내 모든 실행에 로드하는 `opencode.json`을 씁니다.
-6. `git init`으로 첫 타건부터 버전 관리합니다.
+6. 코스용 ignore 규칙을 추가합니다. 코스 폴더에 `.git`이 없으면 `git init`·파일 스테이징·초기 커밋을 시도하고, 기존 저장소에는 자동 커밋하지 않습니다. 이후 변경은 직접 커밋하세요.
 
 단일 채점 호출에서 엔진 덮어쓰기: `paideia grade --ocr=vision 경로/answer.pdf`.
 
 ### 기존 코스 폴더 (마이그레이션)
 
-`.course-meta`에 `INTERFACE_LANG`이 없는 코스는 `en`으로 취급됩니다. 한국어 출력을 유지하려면 `INTERFACE_LANG: ko` 한 줄만 추가하면 됩니다.
+`INTERFACE_LANG`이 없으면 `en`으로 취급하며, 한국어 설명을 원하면 `INTERFACE_LANG: ko`를 추가합니다. 다른 에디션에서 이동할 때는 `AGENTS.md`·`opencode.json`·OCR 엔진도 확인하세요. Codex의 `codex-native`는 `vision`, `qwen3-vl`은 `ollama`에 대응합니다. `.course-meta`가 있으면 `init-course`는 `--force` 없이 재초기화하지 않습니다. 강제 실행 시 메타데이터를 다시 쓰고, 변경된 기존 `AGENTS.md`는 `.bak`으로 백업하며, 기존 `opencode.json`은 보존합니다. 개인 이력과 직접 편집한 산출물을 유지하세요.
 
 ---
 
@@ -217,7 +224,7 @@ my-course/
 ├── materials/                       # 원본 파일을 여기 넣습니다 (PDF/MD)
 │   ├── lectures/  textbook/  homework/  solutions/
 │
-├── converted/                       # 자동 생성 마크다운 — 편집 금지
+├── converted/                       # 생성 마크다운 — 재변환 전에 편집 내용 보존
 │   └── lectures/ textbook/ homework/ solutions/   # `paideia ingest` 출력 (비전 전사 LaTeX)
 │
 ├── course-index/                    # 지식 베이스 — `paideia analyze`가 생성
@@ -233,11 +240,11 @@ my-course/
 └── .paideia/run/                    # opencode에 넘긴 합성 스테이지 spec (실행마다 1개)
 ```
 
-**손으로 편집할 디렉토리는 둘뿐:** `materials/`(원본 PDF/MD)와 `answers/`(손글씨 스캔 PDF). 나머지는 커맨드가 생성하며 재생성 가능합니다. `git log <dir>`로 진행을 보거나, 폴더 전체를 Obsidian 볼트로 가리키세요.
+원본은 `materials/`, 답안 스캔은 `answers/`에 넣으세요. 마크다운 산출물은 모두 편집할 수 있지만 재생성으로 덮어쓸 수 있으니 보존할 수정은 커밋하세요. `errors/log.md`와 weakmap 이력은 원본 PDF만으로 복구할 수 없는 개인의 시도 기록이므로 보관해야 합니다. 에디션별 컨텍스트 파일과 OCR 엔진 이름은 다르니 FAQ의 코스 이동 안내를 확인하세요.
 
 ---
 
-## 읽기 팁: Obsidian
+## 읽기 팁: Obsidian을 쓰세요
 
 Paideia는 모든 것을 LaTeX 수식(`$...$`, `$$...$$`)이 든 평문 마크다운으로 씁니다. 아무 에디터로도 읽히지만 **[Obsidian](https://obsidian.md)**이 자연스럽습니다:
 
@@ -248,15 +255,17 @@ Paideia는 모든 것을 LaTeX 수식(`$...$`, `$$...$$`)이 든 평문 마크�
 
 터미널은 마크다운 프리뷰가 있어도 수식에 약합니다 — 그것과 싸우지 마세요.
 
-## 그리고 강의 끝단: Alt
+---
+
+## 강의를 담는 쪽: Alt
 
 Obsidian이 읽기 끝단의 동반자라면, **[Alt](https://www.altalt.io/ko/)**는 강의가 들어오는 다른 끝단의 동반자입니다. Alt는 강의를 녹음·전사하고, OPTIMETA의 **Exam Radar** 플러그인이 그 안에서 교수가 구두로 얼마나 강조했는지로 토픽을 랭크합니다. 그것을 `paideia alt`로 Paideia에 보내면 루프가 닫힙니다: **강의 참석 → 포착 → 시험 신호 추출 → 중요한 것만 공부.**
 
 ---
 
-## 전체 워크플로 — 예시
+## 전체 워크플로우 — 예시
 
-### 0단계 — 코스당 한 번 (15분)
+### Phase 0 — 코스당 한 번 (15분)
 
 ```bash
 cp ~/textbooks/ch*.pdf      ~/courses/my-course/materials/textbook/
@@ -268,7 +277,7 @@ paideia analyze "약점 힌트"     # patterns + coverage + summary 생성
 paideia hwmap hot               # 🔥🔥 시험 핵심 존 표면화
 ```
 
-### 1단계 — 진단 (40분)
+### Phase 1 — 진단 (40분)
 
 ```bash
 paideia quiz all 20             # 광범위 진단, 20문제
@@ -276,7 +285,7 @@ paideia quiz all 20             # 광범위 진단, 20문제
 paideia grade                   # OCR + 전략 채점
 ```
 
-### 2단계 — 표적 드릴 (대부분의 준비 시간)
+### Phase 2 — 타겟 드릴링 (준비 시간의 대부분)
 
 ```bash
 paideia weakmap                 # 우선순위 약점 리포트
@@ -287,21 +296,21 @@ paideia chain 3                 # 다중 패턴 통합 문제
 paideia quiz weakmap 5          # 최신 weakmap 표적 5문제
 ```
 
-### 3단계 — 통합 (~90분)
+### Phase 3 — 통합 (약 90분)
 
 ```bash
 paideia mock 90                 # HW밀도 가중 90분 모의고사
 paideia grade                   # 모의고사 채점
 ```
 
-### 4단계 — 압축 (시험 전날 60분)
+### Phase 4 — 압축 (60분, 시험 전날 밤)
 
 ```bash
 paideia cheatsheet --pdf        # 오답 기반 1페이지
 paideia weakmap                 # 약점 존 한 번 더 점검
 ```
 
-### 5단계 — 쿨다운 (시험 직전 10분)
+### Phase 5 — 쿨다운 (시험 10분 전)
 
 ```bash
 paideia weakmap                 # 상위 3개만. 새로운 건 배우지 말 것.
@@ -309,7 +318,11 @@ paideia weakmap                 # 상위 3개만. 새로운 건 배우지 말 �
 
 ---
 
-## 커맨드 (16개 + status)
+## 명령어 (총 17개)
+
+`init`은 `init-course`의 별칭입니다.
+
+이 목록은 이 에디션의 실제 제공 기능입니다. 원본의 `reindex` 또는 `graph` 명령은 포함하지 않습니다.
 
 | 커맨드 | 용도 |
 |---------|---------|
@@ -335,65 +348,69 @@ paideia weakmap                 # 상위 3개만. 새로운 건 배우지 말 �
 
 ---
 
-## 내부 동작
+## 내부 구조
 
-### 스테이지 실행 방식
+### 단계별 실행 방식
 
-1. 하네스가 코스 루트(`.course-meta`)를 찾고 선행조건을 확인하고 결정적 사전작업을 합니다.
-2. **스테이지 spec**을 합성합니다 = 공유 시스템 프롬프트(`assets/prompts/_system.md`) + 실시간 **코스 컨텍스트** 블록(메타·`D-N`·단계·파일 목록·대상 파일) + 포팅된 커맨드 지시문(`assets/prompts/<command>.md`). `{{COURSE_NAME}}`·`{{INTERFACE_LANG}}`·`{{TS}}` 등을 치환.
-3. spec을 `.paideia/run/<stage>-<ts>.md`에 쓰고 `opencode run --dir <course> -f <spec> [-m <model>] --dangerously-skip-permissions`를 실행.
-4. opencode가 워크스페이스에 대해 spec을 실행하며 산출물을 씀.
-5. 하네스가 결정적 후처리를 함(스크래치 정리, 채점 PDF 아카이브, 요약 표 출력).
+프로그램이 코스 루트를 찾고 선행조건을 확인하며 파일과 `.paideia/run/`의 작업 명세를 준비합니다. 그다음 실행 지시문·`--dir`·`-f <spec>`을 붙여 `opencode run`을 호출합니다. 모델은 명세를 읽고 학습 산출물을 만들며, 프로그램은 임시 파일 정리와 성공한 채점 프로세스 뒤 답안 PDF 보관 처리를 수행합니다.
 
-`--dry-run`은 모델 호출 없이 정확한 명령과 합성된 spec을 보여줍니다.
+`--dry-run`은 모델 호출을 생략하지만 작업 명세 파일은 기록합니다. 모델 단계의 미리보기이며 설정·진단까지 모든 쓰기를 막는 전역 기능은 아닙니다. `blind`와 `twin`의 두 번째 단계는 별도 `--strategy "…"` 호출로 진행합니다.
 
 ### 설정
 
-- **모델** — `paideia <cmd> --model <provider/model>`, 또는 `PAIDEIA_MODEL` 환경변수. 미설정 시 opencode 기본 모델.
-- **타임아웃** — 오래 걸리는 모든 자식 프로세스(각 `opencode run`, `vision_ocr.py` 로컬 OCR)에 안전 타임아웃이 있습니다(기본 **30분**); 아주 큰 코스나 느린 로컬 모델은 `PAIDEIA_TIMEOUT=<초>`로 늘리세요.
-- **권한** — 스테이지는 무인 실행을 위해 `--dangerously-skip-permissions`로 돕니다; opencode 승인 프롬프트를 유지하려면 `PAIDEIA_ASK_PERMISSIONS=1`.
-- **파이썬** — `PAIDEIA_PYTHON`으로 렌더·로컬 OCR에 쓰는 인터프리터를 덮어씁니다.
-- **색상** — `paideia status`는 TTY에서 코스 이름에 색을 입힙니다; 다른 프롬프트에 끼워 쓰려면 `NO_COLOR=1`(또는 `--plain`)로 이스케이프를 모두 끕니다.
-- **종료 코드** — `0` 성공, `1` 사용법·스테이지 오류. `paideia doctor`는 추가로 차단 이슈에 `2`, 경고에 `1`을 반환하므로 `paideia doctor && …` 로 완전히 깨끗한 설치만 통과시킬 수 있습니다.
-- **워크스페이스 설정** — `init-course`가 `opencode.json`(`instructions: ["AGENTS.md"]` 상시 컨텍스트 + `permission` allow)과 코스 `.gitignore`를 작성합니다.
+| 설정 | 효과 |
+|------|------|
+| `--model provider/model` / `PAIDEIA_MODEL` | 모델 선택. 생략하면 opencode 기본 모델 사용 |
+| `PAIDEIA_TIMEOUT` | 긴 자식 프로세스의 제한 시간(초). 기본 1800 |
+| `PAIDEIA_PYTHON` | PDF 렌더링·로컬 OCR 인터프리터 |
+| `PAIDEIA_ASK_PERMISSIONS=1` | 실행기의 자동 승인 플래그 생략. 코스 `opencode.json` 권한은 여전히 적용 |
+| `NO_COLOR=1` / `status --plain` | 색상 없는 상태 출력 |
 
-### 인제스트 파이프라인: 모든 PDF에 비전
+부트스트랩은 `AGENTS.md`와 이를 읽는 `opencode.json`을 쓰고 `edit`, `bash`, `webfetch`를 허용합니다. 해당 작업의 승인을 받으려면 명시적 권한 규칙도 확인하세요. `doctor`의 종료 코드는 정상 0, 경고 1, 차단 문제 2이며, 다른 명령은 대체로 성공 0·오류 1입니다. 모델 프로세스의 성공만으로 요청한 모든 산출물이 생성되었음을 보장하지는 않습니다.
 
-`paideia ingest`는 `materials/**`의 모든 PDF를 같은 비전 파이프라인으로 보냅니다. 텍스트 추출은 먼저 시도했으나 비신뢰로 판명됐습니다 — 평문처럼 *보이는* 페이지도 수식·도형·다단·여백 메모가 섞이는 순간 조용히 단어 샐러드가 됩니다.
+### 인제스트 파이프라인: 모든 PDF를 비전으로
 
-하네스가 모든 페이지를 `dpi=160` PNG로 렌더하고, **어떤 에이전트가 읽기 전에** 긴 변 ≤1800px로 리사이즈합니다(many-image 요청은 2000px 초과 이미지를 거부; 16:9 슬라이드는 선제 리사이즈 없이는 이를 넘김). 그 뒤 opencode가 PDF당 서브에이전트 1개를 띄워 각자 자기 페이지를 *순차*로 읽고 LaTeX 마크다운으로 전사합니다 — `ℏ ∂ p2 ℏ 2 ∂ 2 p ̂` 대신 `$$\hat H = -\frac{\hbar^2}{2m}\partial_x^2 + V(x)$$`. 렌더가 결정적이라 하네스가 소유합니다(토큰 비용 없음, "읽기 전 리사이즈" 순서 보장).
+PDF는 페이지 이미지로 렌더링한 뒤 전사하고, 마크다운 원본은 출처 헤더를 붙여 복사합니다. ingest가 변환 자료를 쓰고, analyze가 이를 읽어 `summary.md`, `patterns.md`, `coverage.md`를 만듭니다.
 
-### 손글씨 OCR: 세 엔진, 당신이 선택
+프로그램은 opencode 호출 전에 ingest PDF를 160 dpi, 긴 변 1800 px 이하로 렌더링합니다. 명세는 PDF당 에이전트 하나와 페이지 순서대로 읽기를 요청합니다. 최신 변환본은 건너뛰며 `--force`로 다시 변환합니다. 같은 분류 안에 이름이 같은 PDF와 `.md`가 있으면 `.md`가 우선합니다.
 
-종이에 풀고 PDF로 스캔해 `answers/`에 넣고 `paideia grade`를 돌립니다. 하네스가 코스별(`.course-meta`의 `OCR_ENGINE`)로 고르고 호출별(`paideia grade --ocr=<엔진>`)로 덮어쓸 수 있는 세 엔진 중 하나로 마크다운으로 변환합니다:
+**PDF ingest는 항상 opencode의 에이전트 비전을 사용합니다.** `OCR_ENGINE`과 `grade --ocr=…`는 답안 OCR을 선택하며 ingest를 바꾸지 않습니다. 마크다운만 있는 ingest는 모델 호출 없이 끝날 수 있습니다.
 
-| 엔진 | 기본? | 동작 | 선택 시점 |
-|---|---|---|---|
-| `vision` | **예** | 하네스가 각 페이지를 래스터화 → opencode가 각 PNG를 읽어 한 번에 마크다운 합성. 추가 모델/설치 없음. | 기본 경로. 한국어+LaTeX에 강함. opencode에 비전 모델 필요. |
-| `ollama` | 선택 | `vision_ocr.py --engine=ollama` → 로컬 Qwen3-VL 8B, tesseract 자동 폴백. | 페이지 이미지가 기기를 절대 떠나지 않길 원할 때. `ollama pull qwen3-vl:8b`(~6GB) 1회 필요. |
-| `tesseract` | 선택 | `vision_ocr.py --engine=tesseract` → pytesseract(`eng`, ko면 `eng+kor`). | 가장 빠르고 가벼움; 타이핑 스캔에 적합; 손글씨엔 약함. |
+### 필기 OCR: 세 가지 엔진 중에서 직접 고르실 수 있습니다
 
-각 엔진은 `answers/converted/<stem>.md`를 `<!-- SOURCE: ... -->`/`<!-- TIER: ... -->` 헤더와 함께 써서 `grade`가 저신뢰 OCR을 단서로 처리하게 합니다.
+종이에 풀고 `answers/`에 스캔을 넣은 다음 `paideia grade`를 실행합니다. 엔진은 코스별로 고르고 `--ocr=<engine>`으로 호출별 변경이 가능합니다.
 
-### 줄단위가 아닌 전략 기반 채점
+| 엔진 | 기본값? | 동작 방식 | 선택 시점 |
+|------|---------|-----------|-----------|
+| `vision` | 예 | 페이지를 렌더링한 뒤 에이전트의 비전 경로로 읽음 | 비전 모델·도구가 정상 설정되어 있을 때 |
+| `ollama` | 선택 | 로컬 Ollama `qwen3-vl:8b`, Tesseract 폴백 포함 | 답안 OCR의 페이지 이미지를 로컬에서 처리할 때 |
+| `tesseract` | 선택 | 로컬 `pytesseract` | 타이핑된 스캔. 필기·수식은 꼼꼼한 확인 필요 |
 
-손글씨 수식 OCR 노이즈는 엄격한 대수 채점을 무용하게 합니다 — `∫`를 `∑`로 한 번만 오독해도 연쇄됩니다. 더 중요하게, **패턴 인식이 실제 시험 병목**이지 산수가 아닙니다. 채점기는 문제마다 세 가지를 봅니다:
+기본 답안 OCR은 `vision`이며 실행 환경의 비전 경로로 페이지 이미지를 읽습니다. 로컬 답안 OCR을 쓰려면 Ollama와 `qwen3-vl:8b`를 설치한 뒤 `.course-meta`에 `OCR_ENGINE: ollama`로 지정하거나 grade에 `--ocr=ollama` 옵션을 붙이세요. 모델을 다운로드하는 것만으로 엔진이 바뀌지는 않습니다. `tesseract`도 로컬 선택지입니다. 로컬 OCR은 전사 단계를 기기 안에서 처리하며, 이후 분석·채점은 설정된 모델을 사용하므로 전사된 텍스트가 외부 모델에 전달될 수 있습니다.
 
-1. **패턴** — `course-index/patterns.md`에서 올바른 Pk를 골랐는가?
-2. **변수** — 올바른 치환/기저/지표/등고선을 짚었는가?
-3. **최종형** — 최종 식의 형태(차원·점근·구조)가 맞는가?
+### 라인 단위가 아닌, 전략 기반 채점
 
-오답은 타입 분류(`pattern-missed | wrong-variable | wrong-end-form | algebraic | sign | definition`)와 함께 YAML로 `errors/log.md`에 기록됩니다. 이 로그가 `paideia weakmap`의 씨앗이자 치트시트 *함정(traps)* 섹션의 핵심입니다 — `paideia cheatsheet`는 이를 `patterns.md`·`coverage.md`·`summary.md`와 함께 읽습니다.
+채점 지침은 (1) 선택한 패턴 `Pk`, (2) 변수·치환·기저·경로, (3) 최종 식의 형태를 봅니다. OCR이 불확실하면 전사와 채점 결과를 확인하세요. 오류는 `problem_id`, `pattern`, `error_type`, `summary`, `source`, `date` 필드로 `errors/log.md`에 추가합니다. 오류 유형은 `pattern-missed`, `wrong-variable`, `wrong-end-form`, `algebraic`, `sign`, `definition`입니다.
 
-### 추가 전용 이력 & status
+치트시트는 코스 인덱스와 오답 이력을 함께 사용합니다. 패턴·공식은 참조 내용을 제공하고, 오답은 주의점과 교정 항목을 결정합니다. `--pdf`는 `cheatsheet/final.md`를 pandoc 또는 ReportLab 폴백으로 PDF로 바꿉니다. PDF 생성이 누락되거나 실패해도 경고만 출력하고 종료 코드 0을 반환할 수 있으므로, `final.pdf`의 존재와 수식 렌더링을 확인하세요.
 
-`weakmap/`는 절대 덮어쓰지 않습니다 — 매 실행이 `weakmap/weakmap_<ISO타임스탬프>.md`를 만들어, `git log weakmap/`이 "내 이해를 시간순으로 `git diff`"가 됩니다.
+### *당신의* 풀이에서 추출된 패턴
 
-`paideia status`는 사이클상 위치(`paideia · <COURSE> · D-<일수> · <phase> · P<top-miss> ↑`)를 **디스크 활동**(달력 아님)에서 유도해 보여줍니다: `setup`(`patterns.md` 없음) → `diag`(채점 오답 없음) → `drill`(퀴즈 문제 + 채점된 `- problem_id:` 항목) → `mock`(mock 출처 항목 등장) → `cram`(`cheatsheet/final.*` 존재) → `cool`(`D-0`). `<top-miss>`는 최신 weakmap의 최상위 `pattern:` 태그(리포트 자체가 우선순위 순)이며, weakmap이 없으면 `errors/log.md`의 최빈 `pattern:` 태그입니다. `paideia status --banner`는 같은 내용을 2줄 세션 브리핑으로 출력합니다.
+`paideia analyze`는 과목의 풀이와 예제를 읽어 반복되는 접근법을 `P1`, `P2`, …로 붙이고 `converted/`의 출처를 인용합니다. 패턴 카드와 숙제 커버리지가 이후 드릴의 맥락이 됩니다. 모델이 만든 인덱스는 실제 과제와 대조해 확인할 수 있습니다.
+
+### Append-only 이력
+
+명령은 `errors/log.md`에 시도를 추가하고 `weakmap/`에 날짜가 붙은 리포트를 저장합니다. 재변환하거나 에디션을 옮길 때 이 이력을 보존하세요. 문제지와 정답·풀이 파일은 별도로 생성되므로 먼저 문제를 풀고 해답을 여세요.
+
+### 상태와 세션 배너
+
+`paideia status`는 코스 · D-N · 단계 · 최다 실수를 보여 줍니다. `patterns.md`가 없으면 `setup`, 패턴은 있지만 퀴즈 문제와 인식되는 오답 항목이 함께 있지 않으면 `diag`, 둘 다 있으면 `drill`, 모의고사 출처 기록이 인식되면 `mock`, `cheatsheet/final.md`나 `.pdf`가 있으면 `cram`, 시험 당일이면 `cool`입니다. 최신 weakmap의 첫 패턴을 우선하고 없으면 오답 로그의 빈도로 판단합니다. 이는 파일 기반 추정이며 숙련도의 증명은 아닙니다.
+
+`paideia status --banner`는 두 줄 요약을 출력합니다. 직접 실행하는 명령이며 호스트의 세션 시작 훅을 설치하지 않습니다.
 
 ---
 
-## 무엇이 들어 있나
+## 배포물
 
 ```
 PAIDEIA-opencode/
@@ -420,47 +437,51 @@ PAIDEIA-opencode/
 
 ---
 
-## 설계 신념
+## 설계 원칙
 
-1. **터미널은 수식에 약하다.** 하네스가 마크다운 파일을 만들고 당신이 읽는다(이상적으로 Obsidian에서).
-2. **풀이 타이핑은 느리고 오류가 잦다.** 종이에 풀고 스캔하면 하네스가 로컬로 OCR한다.
-3. **OCR 노이즈는 불가피하다.** 그래서 채점은 줄단위 대수가 아니라 전략 기반(패턴/변수/최종형)이다 — 실제 시험 채점관이 보는 것도 그것이다.
-4. **패턴은 *당신* 코스의 솔루션에서 추출되어야 한다** — 일반 목록이 아니라.
-5. **당신의 오답이 가장 가치 있는 학습 신호다** — 교재보다, 강의보다. 치트시트는 강의계획서가 아니라 `errors/log.md`에서 생성된다.
-6. **HW 밀도가 시험을 말해준다.** 시간은 유한하니, 점수가 있는 곳에 써라.
-7. **모든 것은 당신이 편집한다.** 패턴·weakmap·치트시트·오답 로그 — 전부 당신의 git 이력 속 평문 마크다운/YAML. 하네스는 발판, 학습 그래프는 당신 것.
+1. **수식은 마크다운으로 읽습니다.** Obsidian이나 마크다운을 보여 주는 데스크톱 화면에서 코스를 여세요.
+2. **풀이는 종이에 씁니다.** 답안을 스캔하고 환경에 맞는 OCR 경로를 고릅니다.
+3. **전략과 전사를 확인합니다.** 패턴·변수·최종 형태로 채점하며 OCR과 모델 판단은 교정할 수 있습니다.
+4. **내 과목에서 패턴을 뽑습니다.** 제공한 풀이와 예제를 출처로 인용합니다.
+5. **기록한 오답에서 배웁니다.** 연습과 치트시트의 주의점에 반영합니다.
+6. **숙제로 우선순위를 정합니다.** 밀도를 학습 신호로 삼고 공지된 시험 범위와 대조합니다.
+7. **학습 그래프를 직접 소유합니다.** 편집 가능한 마크다운, 보존한 오답 이력, 세션을 넘는 버전 관리입니다.
 
 ---
 
 ## FAQ
 
-**비수학 과목에도 되나요?**
-문제-패턴 추출 중심이라 정량 분야(수학·물리·EE·CS이론·ML이론·통계·공학)에서 빛납니다. 역사·문학도 인제스트·요약은 되지만, 드릴 커맨드는 문제에 풀이 패턴이 있다고 가정합니다.
+**수학 과목이 아닌 경우에도 쓸 수 있나요?**
+인제스트와 요약은 활용할 수 있지만 연습 과정은 반복되는 문제 풀이 패턴을 전제합니다. 수학·물리·공학 등 정량 과목을 중심으로 설계되었습니다.
 
-**한·영 혼합 자료는?**
-됩니다. 인제스트·OCR이 `eng+kor`로 구성됩니다. 패턴·채점 응답이 원자료의 언어 혼합을 존중합니다. 인터페이스 언어는 `init-course`에서 코스별로 설정합니다.
+**다음 세션은 제 작업을 어떻게 기억하나요?**
+코스 컨텍스트·인덱스·오답 이력이 파일로 남고 다음 명령이 다시 읽습니다. 학습 기록을 대화 이력에만 의존하지 않습니다.
 
-**LLM에 그냥 공부 도와달라는 것과 뭐가 다른가요?**
-코스별 영속성입니다. LLM 채팅은 2주 전 HW2에서 놓친 패턴도, 교수가 강조하는 섹션 랭킹도, "당신의 전형적 오답 타입"도 기억하지 못합니다. Paideia는 그 모두를 디스크의 마크다운에 씁니다. 오늘의 `paideia weakmap`은 코스 시작 이래 모든 `paideia grade`에서 정보를 받습니다 — `errors/log.md`가 추가 전용이기 때문입니다.
+**패턴이나 치트시트를 직접 수정해도 되나요?**
+네. 마크다운 에디터에서 저장하고 재생성 전에 보존할 파일을 커밋하세요. 오답 로그와 weakmap 이력은 따로 유지해야 합니다.
 
-**왜 opencode 플러그인이 아니라 하네스인가요?**
-플러그인은 한 에디터의 루프 안에 삽니다. 하네스는 학습 로직 자체를 소유하고 opencode를 교체 가능한 실행 엔진으로 구동합니다 — 그래서 같은 학습 그래프가 Claude Code·Codex·opencode 에디션에 걸쳐 이식됩니다. 모델에 보내는 정확한 지시(`.paideia/run/*.md`)를 읽을 수 있고, 어떤 스테이지든 `--dry-run`으로 재현할 수 있습니다.
+**한국어·영어가 섞인 자료도 되나요?**
+`.course-meta`의 `INTERFACE_LANG: en` 또는 `ko`로 생성 설명의 언어를 고릅니다. 파일 경로·패턴 ID·YAML 키·티어 토큰은 유지됩니다. 로컬 OCR 스크립트는 이에 맞는 Tesseract 언어 설정을 사용하므로 필요한 언어팩을 설치하세요.
 
-**Ollama / Qwen3-VL가 필요한가요?**
-아니요. 기본 OCR 엔진은 opencode 에이전트의 네이티브 비전 — 추가 설치 없음. Ollama + `qwen3-vl:8b`는 페이지 이미지를 기기에 두고 싶은 사용자용 선택지이고, `tesseract`는 최소 설치/타이핑 스캔용 세 번째 옵션입니다.
+**Ollama가 꼭 필요한가요? 전체 과정이 오프라인인가요?**
+Ollama는 선택 사항이며 기본값은 실행 환경의 비전 경로입니다. 로컬 OCR은 이미지 전사를 기기에서 처리하지만 분석·채점은 설정된 모델을 사용합니다. 엔진별 준비 사항은 위 OCR 표를 참고하세요.
 
-**내 데이터는 안전한가요?**
-PDF·마크다운·오답·weakmap 모두 로컬 코스 폴더에 있습니다. 네트워크 트래픽은 OCR 엔진에 따라 다릅니다: `vision`은 페이지 이미지가 opencode가 설정한 모델 제공자를 거치고, `ollama`/`tesseract`는 아무것도 기기를 떠나지 않습니다.
+**PAIDEIA 에디션 사이에 코스를 옮길 수 있나요?**
+마크다운 학습 산출물은 폴더 구조를 공유합니다. 먼저 대상 에디션의 컨텍스트 파일(`CLAUDE.md` / `AGENTS.md` / `PAIDEIA.md`)과 엔진 이름(`claude` / `codex-native` / `vision`, `ollama` / `qwen3-vl`)을 확인하세요. 기존 메타데이터와 개인 이력을 보존해야 하며, 설정과 명령 목록까지 같지는 않습니다.
+
+**모델이 생성한 채점은 확인이 필요한가요?**
+네. 원본 스캔·전사·참조 패턴·YAML 로그를 대조해 확인하고 고칠 수 있습니다. 상태 표시는 파일에 따른 진행 안내이며 이해도를 독립적으로 측정한 결과는 아닙니다.
 
 ---
 
-## Connect
+## 연락
 
 <p align="center">
   <a href="https://github.com/TaewoooPark"><img src="https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white&cacheSeconds=3600" alt="GitHub"></a>
   <a href="https://x.com/theoverstrcture"><img src="https://img.shields.io/badge/-X-000000?style=for-the-badge&logo=x&logoColor=white&cacheSeconds=3600" alt="X (Twitter)"></a>
   <a href="https://www.linkedin.com/in/taewoo-park-427a05352"><img src="https://img.shields.io/badge/-LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white&cacheSeconds=3600" alt="LinkedIn"></a>
-  <a href="https://taewoopark.com"><img src="https://img.shields.io/badge/-taewoopark.com-000000?style=for-the-badge&logo=safari&logoColor=white&cacheSeconds=3600" alt="Personal site"></a>
+  <a href="https://www.instagram.com/t.wo0_x/"><img src="https://img.shields.io/badge/-Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white&cacheSeconds=3600" alt="Instagram"></a>
+  <a href="mailto:ptw151125@kaist.ac.kr"><img src="https://img.shields.io/badge/-Email-D14836?style=for-the-badge&logo=gmail&logoColor=white&cacheSeconds=3600" alt="Email"></a>
 </p>
 
 ---
